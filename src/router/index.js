@@ -1,14 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import ContenidoLIstas from "../views/ContenidoLIstas.vue";
+import Menu from "../views/Menu.vue";
+import VueSwal from 'vue-swal'
+ 
+Vue.use(VueSwal)
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/contain",
-    name: "ContainListas",
-    component: ContenidoLIstas,
+    path: "/menu",
+    name: "Menu",
+    component: Menu,
     props: true
   },
   {
