@@ -8,61 +8,61 @@
       <div>
           <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
-                <div class="col-md-2 ">Razon Social</div>
-                <div class="col-md-2">Ruc</div>
-                <div class="col-md-2">Correo Empresa</div>
+                <div class="col-md-3 ">Razon Social</div>
+                <div class="col-md-3">Ruc</div>
+                <div class="col-md-3">Correo Empresa</div>
 
             </div>
             <div class="row">
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
 
             </div>
         </div>
         <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
-                <div class="col-md-2 ">Razon Social</div>
-                <div class="col-md-2">Ruc</div>
-                <div class="col-md-2">Correo Empresa</div>
+                <div class="col-md-3 ">Razon Social</div>
+                <div class="col-md-3">Ruc</div>
+                <div class="col-md-3">Correo Empresa</div>
 
             </div>
             <div class="row">
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
 
             </div>
         </div>
         <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
-                <div class="col-md-2 ">Razon Social</div>
-                <div class="col-md-2">Ruc</div>
-                <div class="col-md-2">Correo Empresa</div>
+                <div class="col-md-3 ">Razon Social</div>
+                <div class="col-md-3">Ruc</div>
+                <div class="col-md-3">Correo Empresa</div>
 
             </div>
             <div class="row">
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
 
             </div>
         </div>
         <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
-                <div class="col-md-2 ">Razon Social</div>
-                <div class="col-md-2">Ruc</div>
-                <div class="col-md-2">Correo Empresa</div>
+                <div class="col-md-3 ">Razon Social</div>
+                <div class="col-md-3">Ruc</div>
+                <div class="col-md-3">Correo Empresa</div>
 
             </div>
             <div class="row">
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge"></div>
+                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
 
             </div>
         </div>
@@ -164,6 +164,11 @@ color: #727272;
 
 width: 350px;
 height: 70px;
+
+width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
 }
 .añadir{
     color: #51c1ff;
