@@ -2,9 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
-import VueSwal from 'vue-swal'
- 
-Vue.use(VueSwal)
+import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
+import MiCuenta from "../views/Opciones/MiCuenta.vue";
+// import MisContactos from "../views/Opciones/MisContactos.vue";
+// import Ordenes from "../views/Opciones/Ordenes.vue";
+// import Facturas from "../views/Opciones/Facturas.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,7 +15,38 @@ const routes = [
     path: "/menu",
     name: "Menu",
     component: Menu,
-    props: true
+    props: true,
+    children:[
+      {
+        path: '/',
+        component: ()=>import('../views/Opciones/menuPrincipal.vue') 
+      },
+      {
+        path: '/misusuarios',
+        name: "Mis Usuarios",
+        component: MisUsuarios,
+      },
+      {
+        path: '/micuenta',
+        name: "MiCuenta",
+        component: MiCuenta
+      // },
+      // {
+        // path: '/miscontactos',
+        // name: "Mis Contactos",
+        // component: MisContactos,
+        // },
+      // {
+      //   path: '/ordenes',
+      //   name: "Ordenes",
+      //   component: Ordenes
+      // },
+      // {
+      //   path: '/facturas',
+      //   name: "Facturas",
+      //   component: Facturas 
+      }
+    ]
   },
   {
     path: "/",
