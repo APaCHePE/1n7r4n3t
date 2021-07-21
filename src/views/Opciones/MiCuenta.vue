@@ -17,7 +17,8 @@
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
-                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3">                <el-button  @click="dialogVisible = true">Detalle</el-button> 
+</div>
 
             </div>
         </div>
@@ -32,7 +33,8 @@
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
-                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3">                <el-button  @click="dialogVisible = true">Detalle</el-button> 
+</div>
 
             </div>
         </div>
@@ -47,7 +49,8 @@
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
-                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3">                <el-button  @click="dialogVisible = true">Detalle</el-button> 
+</div>
 
             </div>
         </div>
@@ -62,9 +65,37 @@
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
                 <div class="col-md-3"><input class="form-control form-control-merge"></div>
-                <div class="col-md-3"><button  @click="añadirCuenta()" class="botonDetalle">ver detalle</button></div>
+                <div class="col-md-3">                <el-button  @click="dialogVisible = true">Detalle</el-button> 
+</div>
 
             </div>
+
+
+
+            
+
+
+<el-dialog
+                title="Editar"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose">
+                <!-- <span>Nueva cuenta</span> -->
+                <el-form >
+                <el-form-item label="Datos Ingresados" >
+                </el-form-item>
+                <el-form-item label="Datos Sunat" >
+                </el-form-item>
+                <el-form-item label="Datos ERNP" >
+                </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">Cancel</el-button>
+                  <el-button type="primary" @click="dialogVisible = false">Guardar</el-button>
+                </span>
+              </el-dialog>
+
+
         </div>
     </div>          
   </div>
@@ -77,6 +108,7 @@
 export default {
 data(){
     return{
+        dialogVisible: false,
         nombreRazonSocial:null,
         numeroRuc:null,
         cuenta:null,
