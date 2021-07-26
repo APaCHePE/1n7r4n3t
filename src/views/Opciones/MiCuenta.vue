@@ -1,9 +1,11 @@
 <template>
 <div class="main-content body-full positionRight" >
- <div class="content contentTG left-sidebar-toggle contenedor-opciones" style="min-height: 592px;">
-  <div class="container" >
+<div
+      class="content contentTG left-sidebar-toggle contenedor-opciones"
+      style="min-height: 592px; margin-left: 70px"
+    >
+      <titulo-header>Solicitudes de Cuenta Proveedor</titulo-header><br />  <div class="container" >
       <div id="miCuenta">
-        <h2 class="titulo2">Solicitudes de Cuenta Proveedor</h2><br>
       </div>
       <div>
           <div id="cuentasBAncarias" class="textoCuenta2">
@@ -105,7 +107,12 @@
 
 <script>
 
+import TituloHeader from "@/components/Utils/TituloHeader.vue";
+
 export default {
+  components: {
+    TituloHeader,
+  },
 data(){
     return{
         dialogVisible: false,
