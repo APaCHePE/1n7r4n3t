@@ -14,15 +14,15 @@
               <div class="col-md-3">Ruc</div>
               <div class="col-md-3">Correo Empresa</div>
             </div>
-            <div class="row" v-for="item of datosSolicitudes" :key="'solicitudes ' + item.idOrden">
+            <div class="row" v-for="item of datosSolicitudes" :key="'solicitudes ' + item.idProveedor">
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.razonSocial" disabled/>
+                <input class="form-control form-control-merge" v-model="item.usuario" disabled/>
               </div>
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.ruc" disabled/>
+                <input class="form-control form-control-merge" v-model="item.persona.nroDocumento" disabled/>
               </div>
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.correo" disabled/>
+                <input class="form-control form-control-merge" v-model="item.usuario" disabled/>
               </div>
               <div class="col-md-3">
                 <el-button @click="mostrarDetalleSolicitud(item)">Detalle</el-button>
@@ -39,16 +39,12 @@
               <!-- <span>Nueva cuenta</span> -->
               <el-form>
                 <el-form-item label="Datos Ingresados"> </el-form-item>
-                    <!-- <p>{{detalleSolicitud.razonSocial}}</p> 
-                     <p>{{detalleSolicitud.ruc}}</p>
-                    <p>{{detalleSolicitud.correo}}</p> -->
-
-                    <div class="row" v-for="item of datosSolicitudes" :key="'solicitudes ' + item.idOrden">
+                    <div class="row" v-for="(item2, index2) of datosSolicitudes" :key="'solicitudes ' + index2">
              
-                <div>Razon Social: {{item.razonSocial}}</div><br>
+                <div>Razon Social: {{item2.usuario}}</div><br>
             
-                <div>Ruc: {{item.ruc}}</div>
-                <div>Correo: {{item.correo}}</div>
+                <div>Ruc: {{item2.persona.nroDocumento}}</div>
+                <div>Correo: {{item2.usuario}}</div>
               
               
             </div>
@@ -88,13 +84,6 @@ validacionEstado: null,
 validacionNombre: null,
 validacionDomicilio:null,
 
-
-    datosSolicitudes:[{
-            idOrden:1,
-            razonSocial: 'empresa numero 1',
-            ruc:'20503482020',
-            correo:'prueba@'
-    }],
       dialogVisible: false,
       nombreRazonSocial: null,
       numeroRuc: null,
@@ -104,11 +93,33 @@ validacionDomicilio:null,
       monedaDetraccion: "soles",
     };
   },
+created(){
+  axios
+          .get(
+            "http://localhost:8090/api/admin/listar-proveedores", {
+              params:{
+                "estado": 8,
+              }
+            }
+          )
+          .then((response) => {
+            this.datosSolicitudes = response.data.resultado;
+            
+          })
+          .catch((e) => {
+            console.log(e)
+            // this.$swal({
+            //   icon: 'error',
+            //   title: 'Error',
+            //   text: "Intentelo más tarde"
+            // });
+            });
+},
+
+
   methods: {
 mostrarDetalleSolicitud(rucSolicitud){
-    this.detalleSolicitud = rucSolicitud
-    console.log("********************")
-    console.log(this.detalleSolicitud)
+    this.detalleSolicitud = rucSolicitud.persona.nroDocumento
 this.dialogVisible = true
 
 var url = "https://mz-services-test.miraflores.gob.pe:8090/api/persona/datos-sunat/" + rucSolicitud.ruc;
