@@ -30,7 +30,7 @@
             </div>
           </div>
           
-           
+          <div v-if="detalleSolicitud">
             <el-dialog
               title="Detalle"
               :visible.sync="dialogVisible"
@@ -38,16 +38,16 @@
             >
               <!-- <span>Nueva cuenta</span> -->
               <el-form>
-                <el-form-item label="Datos Ingresados"> </el-form-item>
-                    <div class="row" v-for="(item2, index2) of datosSolicitudes" :key="'solicitudes ' + index2">
+                <el-form-item label="Datos Ingresados"> 
+                    <div class="row" >
              
-                <div>Razon Social: {{item2.usuario}}</div><br>
+                <div>Razon Social: {{detalleSolicitud.persona.nombreCompleto}}</div><br>
             
-                <div>Ruc: {{item2.persona.nroDocumento}}</div>
-                <div>Correo: {{item2.usuario}}</div>
+                <div>Ruc: {{detalleSolicitud.persona.nroDocumento}}</div>
+                <div>Correo: {{detalleSolicitud.usuario}}</div>
               
               
-            </div>
+            </div></el-form-item>
                 <el-form-item label="Datos Sunat"> <br>
                     <p>Estado: {{validacionEstado}}</p><br>
                     <p>Razon Social: {{validacionNombre}}</p><br>
@@ -61,6 +61,7 @@
                 >
               </span>
             </el-dialog>
+            </div>
           </div>
         </div>
       </div>
@@ -83,6 +84,8 @@ detalleSolicitud:null,
 validacionEstado: null,
 validacionNombre: null,
 validacionDomicilio:null,
+           datosSolicitudes : null,
+
 
       dialogVisible: false,
       nombreRazonSocial: null,
@@ -103,6 +106,7 @@ created(){
             }
           )
           .then((response) => {
+            console.log( response.data.resultado)
             this.datosSolicitudes = response.data.resultado;
             
           })
@@ -119,10 +123,12 @@ created(){
 
   methods: {
 mostrarDetalleSolicitud(rucSolicitud){
-    this.detalleSolicitud = rucSolicitud.persona.nroDocumento
+  console.log(rucSolicitud);
+    this.detalleSolicitud = rucSolicitud
 this.dialogVisible = true
+console.log(rucSolicitud.persona.nroDocumento)
 
-var url = "https://mz-services-test.miraflores.gob.pe:8090/api/persona/datos-sunat/" + rucSolicitud.ruc;
+var url = "https://mz-services-test.miraflores.gob.pe:8090/api/persona/datos-sunat/" + rucSolicitud.persona.nroDocumento;
 const params = {
         correoUsuario: "p.gsti006@miraflores.gob.pe",
       };
