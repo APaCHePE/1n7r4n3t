@@ -14,58 +14,97 @@
               <div class="col-md-3">Ruc</div>
               <div class="col-md-3">Correo Empresa</div>
             </div>
-            <div class="row" v-for="item of datosSolicitudes" :key="'solicitudes ' + item.idProveedor">
+            <div
+              class="row"
+              v-for="item of datosSolicitudes"
+              :key="'solicitudes ' + item.idProveedor"
+            >
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.usuario" disabled/>
+                <input
+                  class="form-control form-control-merge"
+                  v-model="item.usuario"
+                  disabled
+                />
               </div>
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.persona.nroDocumento" disabled/>
+                <input
+                  class="form-control form-control-merge"
+                  v-model="item.persona.nroDocumento"
+                  disabled
+                />
               </div>
               <div class="col-md-3">
-                <input class="form-control form-control-merge" v-model="item.usuario" disabled/>
+                <input
+                  class="form-control form-control-merge"
+                  v-model="item.usuario"
+                  disabled
+                />
               </div>
               <div class="col-md-3">
-                <el-button @click="mostrarDetalleSolicitud(item)">Detalle</el-button>
+                <el-button @click="mostrarDetalleSolicitud(item)"
+                  >Detalle</el-button
+                >
               </div>
             </div>
           </div>
-          
+
           <div v-if="detalleSolicitud">
             <el-dialog
               title="Detalle"
               :visible.sync="dialogVisible"
-              width="30%"
             >
               <!-- <span>Nueva cuenta</span> -->
               <el-form>
-                <el-form-item label="Datos Ingresados"> 
-                    <div class="row" >
-             
-                <div>Razon Social: {{detalleSolicitud.persona.nombreCompleto}}</div><br>
-            
-                <div>Ruc: {{detalleSolicitud.persona.nroDocumento}}</div>
-                <div>Correo: {{detalleSolicitud.usuario}}</div>
-              
-              
-            </div></el-form-item>
-                <el-form-item label="Datos Sunat"> <br>
-                    <p>Estado: {{validacionEstado}}</p><br>
-                    <p>Razon Social: {{validacionNombre}}</p><br>
-                    <p>Direcciòn: {{validacionDomicilio}}</p></el-form-item>
-                <el-form-item label="Datos ERNP"> </el-form-item>
+                <el-form-item label="Datos Ingresados" style="font-size: 18px">
+                  <el-col :md="24" style="text-align: left">
+                    <el-row
+                      ><b>Razon Social:</b>
+                      {{ detalleSolicitud.persona.nombreCompleto }}</el-row
+                    >
+                    <el-row
+                      ><b>Ruc:</b>
+                      {{ detalleSolicitud.persona.nroDocumento }}</el-row
+                    >
+                    <el-row
+                      ><b>Correo:</b> {{ detalleSolicitud.usuario }}</el-row
+                    >
+                    <el-row
+                      ><b>Teléfono:</b> {{ detalleSolicitud.persona.telefonoPrincipal }}</el-row
+                    >
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="Datos Sunat">
+                  <br />
+                  <el-row style="text-align: left">
+                    <div col="6"><b>Razon Social:</b> {{ validacionNombre }}</div>
+                    <div col="6"><b>Estado:</b> {{ validacionEstado }}</div>
+                    <span :md="24"><b>Direcciòn:</b> {{ validacionDomicilio }}</span>
+                  </el-row>
+                </el-form-item>
+                <el-form-item label="Datos ERNP"> 
+                  <el-col v-if="datosErp" style="text-align: left">
+                    <el-row><b>Razon Social:</b> {{datosErp.nombreCompleto}}</el-row>
+                    <el-row><b>Nro. RUC:</b> {{datosErp.nroDocumento}}</el-row>
+                    <el-row><b>Direcciòn:</b> {{datosErp.direccion}}</el-row>
+                    <el-row><b>Teléfono</b> {{datosErp.telefonoPrincipal}}</el-row>
+                  </el-col>
+                  <el-col v-else>
+                    <el-row>No se encontraron datos</el-row>
+                  </el-col>
+                </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="dialogVisible = false"
+                <el-button type="primary" @click="dialogVisible = false, activarCuenta()"
                   >Guardar</el-button
                 >
               </span>
             </el-dialog>
-            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -78,14 +117,14 @@ export default {
   },
   data() {
     return {
-detalleSolicitud:null,
+      detalleSolicitud: null,
 
-//datos sunat
-validacionEstado: null,
-validacionNombre: null,
-validacionDomicilio:null,
-           datosSolicitudes : null,
-
+      //datos sunat
+      validacionEstado: null,
+      validacionNombre: null,
+      validacionDomicilio: null,
+      datosSolicitudes: null,
+      datosErp: null,
 
       dialogVisible: false,
       nombreRazonSocial: null,
@@ -96,53 +135,85 @@ validacionDomicilio:null,
       monedaDetraccion: "soles",
     };
   },
-created(){
-  axios
-          .get(
-            "http://localhost:8090/api/admin/listar-proveedores", {
-              params:{
-                "estado": 8,
-              }
-            }
-          )
-          .then((response) => {
-            console.log( response.data.resultado)
-            this.datosSolicitudes = response.data.resultado;
-            
-          })
-          .catch((e) => {
-            console.log(e)
-            // this.$swal({
-            //   icon: 'error',
-            //   title: 'Error',
-            //   text: "Intentelo más tarde"
-            // });
-            });
-},
-
+  created() {
+    this.listarCuentas();
+  },
 
   methods: {
-mostrarDetalleSolicitud(rucSolicitud){
-  console.log(rucSolicitud);
-    this.detalleSolicitud = rucSolicitud
-this.dialogVisible = true
-console.log(rucSolicitud.persona.nroDocumento)
-
-var url = "https://mz-services-test.miraflores.gob.pe:8090/api/persona/datos-sunat/" + rucSolicitud.persona.nroDocumento;
-const params = {
-        correoUsuario: "p.gsti006@miraflores.gob.pe",
-      };
-      
- axios.post(url, params)
+    listarCuentas(){
+      axios
+      .get("http://localhost:8090/api/admin/listar-proveedores", {
+        params: {
+          estado: 8,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.resultado);
+        this.datosSolicitudes = response.data.resultado;
+      })
+      .catch((e) => {
+        console.log(e);
+        // this.$swal({
+        //   icon: 'error',
+        //   title: 'Error',
+        //   text: "Intentelo más tarde"
+        // });
+      });
+    },
+    async activarCuenta(){
+      var url = "http://localhost:8090/api/admin/activar-proveedor"
+       await axios
+        .get(url, {
+          params:{
+            "idProveedor": this.detalleSolicitud.idProveedor,
+          }
+        })
         .then((response) => {
-        console.log(response.data);
-        this.validacionEstado = response.data.principal.sunat.estadoContrib
-        this.validacionNombre = response.data.principal.sunat.nombresContrib
-        this.validacionDomicilio = response.data.domicilio.sunat.domLegal
+          console.log("activacion exitosa");
+          console.log(response.data);
+          
         })
         .catch((e) => console.log(e));
-},
+        this.listarCuentas();
+    },
+    mostrarDetalleSolicitud(rucSolicitud) {
+      console.log(rucSolicitud);
+      this.detalleSolicitud = rucSolicitud;
+      this.dialogVisible = true;
+      console.log(rucSolicitud.persona.nroDocumento);
 
+      var url =
+        "https://mz-services-test.miraflores.gob.pe:8090/api/persona/datos-sunat/" +
+        rucSolicitud.persona.nroDocumento;
+      const params = {
+        correoUsuario: "p.gsti006@miraflores.gob.pe",
+      };
+
+      axios
+        .post(url, params)
+        .then((response) => {
+          console.log(response.data);
+          this.validacionEstado = response.data.principal.sunat.estadoContrib;
+          this.validacionNombre = response.data.principal.sunat.nombresContrib;
+          this.validacionDomicilio = response.data.domicilio.sunat.domLegal;
+        })
+        .catch((e) => console.log(e));
+      var urlErp = "http://localhost:8090/api/admin/listar-proveedor-erp";
+      axios
+        .get(urlErp, {
+          params:{
+            "nroDocumento": rucSolicitud.persona.nroDocumento,
+          }
+        })
+        .then((response) => {
+          console.log("Resonse erp");
+          console.log(response.data);
+          if(response.data.esCorrecto){
+            this.datosErp = response.data.resultado.persona;
+          }
+        })
+        .catch((e) => console.log(e));
+    },
     añadirCuenta() {
       this.$swal({
         title: "Verificar",
@@ -157,7 +228,14 @@ const params = {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.el-row {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+.el-form-item__label {
+  font-size: 18px !important;
+}
 .textoCuenta {
   text-align: left;
   width: 950px;
