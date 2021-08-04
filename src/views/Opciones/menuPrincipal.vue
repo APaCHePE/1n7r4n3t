@@ -1,31 +1,32 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container ">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
         style="min-height: 592px; margin-left: 70px;"
       >
-        <div class="container">
-          <div class="row mb25 mt25">
-            <div class="col-md-2">
-              <img
-                src="../../plugins/img/icons/ico-etapa-gestion.png"
-                alt=""
-                style="width: 140px; height: 154px"
-                data-themekey="#"
-              />
-            </div>
+        <div class="contenedor-principal"><br><br><br>
+          <div class="row mb25 mt25 bienvenido">
+            
             <div class="col-md-6">
               <h2 class="t1">Bievenido(a)</h2>
               <span class="t2" id="NombreCompleto"></span
-              ><span class="t3">al aplicativo <b>Pago a proveedores</b></span>
+              ><span class="t3">Plataforma de<b> proveedores</b></span>
+            </div>
+            <div class="col-md-2">
+              <img
+                src="https://www.transfiriendo.com/wp-content/uploads/2020/06/c03417ebf4f447610528b07a704e0540.gif"
+                alt=""
+                style="width: 290px; height: 150px"
+                data-themekey="#"
+              />
             </div>
           </div>
           <div class="row" style="display: center">
             <div
               v-for="(i, a) in itemsNav"
               :key="a + 'lista'"
-              class="card col-sm-2 offset-md-1"
+              class="card col-sm-3 offset-md-1 "
             >
               <div
                 v-if="i.children"
@@ -34,7 +35,7 @@
               >
                 {{ i.name }}
               </div>
-              <div class="card-body">
+              <div class="card-body" shadow="hover">
                 <ul role="menu">
                   <li
                     v-for="(child, b) in i.children"
@@ -70,25 +71,20 @@ export default {
           children: [
             {
               name: "Solicitudes",
-              url: "/menu/micuenta",
+              url: "/menu/miCuenta",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
           ],
         },
         {
-          name: "Pagos",
+          name: "Facturas",
           url: "/",
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Ordenes",
-              url: "/ordenes",
+              name: "Facturas Físicas",
+              url: "/facturasFisicas",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
-            },
-            {
-              name: "Facturas",
-              url: "/facturas",
-              icon: "fa fa-puzzle-piece",
             },
           ],
         },
@@ -107,7 +103,15 @@ export default {
 @import "../../plugins/css/main.css";
 @import "../../plugins/css/font-awesome.css";
 @import "../../plugins/css/responsive.css";
-
+.bienvenido{
+  box-shadow: 3px 2px 10px #c7c7c7;
+  border-radius: 28px !important;
+    background-color: #ffffff;
+}
+.contenedor-principal{
+  width: auto;
+  margin-left: 70px;
+}
 .contenedor-opciones {
   position: absolute;
 }

@@ -5,7 +5,7 @@ import Menu from "../views/Menu.vue";
 import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
 // import MisContactos from "../views/Opciones/MisContactos.vue";
-// import Ordenes from "../views/Opciones/Ordenes.vue";
+import facturasFisicas from "../views/Opciones/facturasFisicas.vue";
 // import Facturas from "../views/Opciones/Facturas.vue";
 
 Vue.use(VueRouter);
@@ -27,25 +27,20 @@ const routes = [
         component: MisUsuarios,
       },
       {
-        path: '/micuenta',
+        path: '/solicitudes',
         name: "MiCuenta",
         component: MiCuenta
-      // },
-      // {
-        // path: '/miscontactos',
-        // name: "Mis Contactos",
-        // component: MisContactos,
-        // },
-      // {
-      //   path: '/ordenes',
-      //   name: "Ordenes",
-      //   component: Ordenes
-      // },
+      }, 
+      {
+        path: '/facturasFisicas',
+        name: "facturasFisicas",
+        component: facturasFisicas
+      },
       // {
       //   path: '/facturas',
       //   name: "Facturas",
       //   component: Facturas 
-      }
+      
     ]
   },
   {
