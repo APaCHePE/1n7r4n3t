@@ -11,6 +11,7 @@
             <p><b>Razon Social: </b><input></p>
             <p><b>Dirección: </b><input></p>
           </div>
+          <br/>
           <div class="cabecera-detalle">
             <p><b>REGISTRO FACTURA</b></p>
             <p><b>Ruc: </b><input></p>

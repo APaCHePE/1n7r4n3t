@@ -10,7 +10,7 @@
         <div>
           <div id="cuentasBAncarias" class="textoCuenta2">
             <div class="row mb-1" style="font-size: 16px">
-              <div class="col-md-3"><b>Razon Social</b></div>
+              <div class="col-md-3"><b>Razón Social</b></div>
               <div class="col-md-3"><b>Ruc</b></div>
               <div class="col-md-3"><b>Correo Empresa</b></div>
             </div>
@@ -64,9 +64,18 @@
                 <div slot="header" class="cabecera text-info font-weight-bold">
                   <span>Datos SUNAT</span>
                 </div>
-                <template v-if="validacionNombre">
+                <template v-if="cargando">
+                  <div
+                    class="spinner-border"
+                    style="width: 3rem; height: 3rem; margin-left: 150px"
+                    role="status"
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </template>
+                <template v-else-if="validacionNombre">
                   <div><b>RUC:</b> {{ validacionRUC }}</div>
-                  <div><b>Razon Social:</b> {{ validacionNombre }}</div>
+                  <div><b>Razón Social:</b> {{ validacionNombre }}</div>
                   <div><b>Estado:</b> {{ validacionEstado }}</div>
                   <div><b>Direcciòn:</b> {{ validacionDomicilio }}</div>
                 </template>
@@ -76,9 +85,18 @@
                 <div slot="header" class="cabecera text-info font-weight-bold">
                   <span>Datos ERP</span>
                 </div>
-                <template v-if="datosErp">
+                <template v-if="cargando">
+                  <div
+                    class="spinner-border"
+                    style="width: 3rem; height: 3rem; margin-left: 150px"
+                    role="status"
+                  >
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </template>
+                <template v-else-if="datosErp">
                   <div ><b>RUC:</b> {{ datosErp.nroDocumento }}</div>
-                  <div ><b>Razon Social:</b>{{ datosErp.nombreCompleto }}</div>
+                  <div ><b>Razón Social:</b>{{ datosErp.nombreCompleto }}</div>
                   <div ><b>Direcciòn:</b> {{ datosErp.direccion }}</div>
                   <div><b>Teléfono</b> {{ (datosErp.telefonoPrincipal==null)?"-": datosErp.telefonoPrincipal}}</div>
                 </template>
@@ -156,6 +174,8 @@ export default {
       telefono: null,
       entidadDetraccion: "Banco de la Nacion",
       monedaDetraccion: "soles",
+
+      cargando: null
     };
   },
   created() {
@@ -207,7 +227,8 @@ export default {
       this.listarCuentas();
       this.limpiarCaracteres();
     },
-    mostrarDetalleSolicitud(rucSolicitud) {
+   async mostrarDetalleSolicitud(rucSolicitud) {
+     this.cargando= true
       console.log(rucSolicitud);
       this.detalleSolicitud = rucSolicitud;
       this.dialogVisible = true;
@@ -220,7 +241,7 @@ export default {
         correoUsuario: "p.gsti006@miraflores.gob.pe",
       };
 
-      axios
+    await  axios
         .post(url, params)
         .then((response) => {
           console.log(response.data);
@@ -245,6 +266,7 @@ export default {
           }
         })
         .catch((e) => console.log(e));
+        this.cargando= null
     },
     añadirCuenta() {
       this.$swal({
