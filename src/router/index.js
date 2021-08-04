@@ -6,7 +6,7 @@ import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
 // import MisContactos from "../views/Opciones/MisContactos.vue";
 import facturasFisicas from "../views/Opciones/facturasFisicas.vue";
-// import Facturas from "../views/Opciones/Facturas.vue";
+ import Facturas from "../views/Opciones/Facturas.vue";
 
 Vue.use(VueRouter);
 
@@ -36,11 +36,11 @@ const routes = [
         name: "facturasFisicas",
         component: facturasFisicas
       },
-      // {
-      //   path: '/facturas',
-      //   name: "Facturas",
-      //   component: Facturas 
-      
+      {
+        path: '/facturas',
+        name: "Facturas",
+        component: Facturas 
+      }
     ]
   },
   {

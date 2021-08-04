@@ -1,17 +1,17 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container">
     <!-- <div class="main-content body-full positionRight"> -->
     <div
       class="content contentTG left-sidebar-toggle contenedor-opciones"
       style="min-height: 592px; margin-left: 70px"
     >
-      <titulo-header>Facturas</titulo-header><br />
+      <titulo-header>Consulta Facturas</titulo-header><br />
       <div class="container">
-        <el-tabs type="border-card">
+        <!-- <el-tabs type="border-card">
           <el-tab-pane>
             <span slot="label" class="menu"
               ><i class="el-icon-search"></i> Busqueda</span
-            >
+            > -->
             <div>
               <div class="row">
                 <div class="col-md-4" style="float: left">N° de Factura</div>
@@ -35,12 +35,12 @@
                   </el-date-picker>
                 </div>
                 <div class="col-md-4">
-                  <el-select v-model="Estado" placeholder="Select">
+                  <el-select v-model="Estado" placeholder="TODOS">
                     <el-option
                       v-for="item in options"
                       :key="item.Estado"
-                      :label="item.Estado"
-                      :value="item.Estado"
+                      :label="item.nombre"
+                      :value="item.valor"
                     >
                     </el-option>
                   </el-select>
@@ -48,7 +48,7 @@
               </div>
               <br />
               <el-button
-                style="background-color: #51c1ff; width: 990px; color: #ffffff"
+                style="background-color: #51c1ff; width: 900px; color: #ffffff"
                 icon="el-icon-search"
                 @click="BuscarFacturas()"
                 >Buscar</el-button
@@ -62,10 +62,10 @@
                   <th class="text-center">Fecha</th>
                   <th class="text-center">Moneda</th>
                   <th class="text-center">IGV</th>
-                  <th class="text-center">Subtotal</th>
-                  <th class="text-center">Total</th>
-                  <th class="text-center">Cod Vendedor</th>
-                  <th class="text-center" width="7%"></th>
+                  <th class="text-center">Importe</th>
+                  <th class="text-center">Saldo</th>
+                  <th class="text-center">estado</th>
+                  <!-- <th class="text-center" width="7%"></th> -->
                 </tr>
               </thead>
               <tbody>
@@ -74,7 +74,7 @@
                     <template>{{ item.numeroFactura }}</template>
                   </td>
                   <td>
-                    <template>{{ item.fecha }}</template>
+                    <template>{{ item.fechaDocumento }}</template>
                   </td>
                   <td>
                     <template>{{ item.moneda }}</template>
@@ -83,15 +83,15 @@
                     <template>{{ item.igv }}</template>
                   </td>
                   <td>
-                    <template>{{ item.subTotal }}</template>
+                    <template>{{ item.importeSoles }}</template>
                   </td>
                   <td>
-                    <template>{{ item.total }}</template>
+                    <template>{{ item.saldo }}</template>
                   </td>
                   <td>
-                    <template>{{ item.vendedor }}</template>
+                    <template>{{ item.estado }}</template>
                   </td>
-                  <td>
+                  <!-- <td>
                     <template
                       ><el-button
                         type="text"
@@ -99,7 +99,7 @@
                         >VER</el-button
                       ></template
                     >
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -123,8 +123,8 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="item2 of detalleOrden"
-                        :key="'Ordenes ' + item2.codigo_producto"
+                        v-for="(item2, index2) of detalleOrden"
+                        :key="'Ordenes ' + index2"
                       >
                         <td>
                           <template>{{ item2.codigo_producto }}</template>
@@ -151,8 +151,8 @@
                 <el-button @click="dialogVisible = false">Cerrar</el-button>
               </span>
             </el-dialog>
-          </el-tab-pane>
-          <el-tab-pane>
+          <!-- </el-tab-pane> -->
+          <!-- <el-tab-pane>
             <span slot="label" class="menu"
               ><i class="el-icon-folder-opened"></i> Añadir</span
             >
@@ -192,17 +192,18 @@
                   </el-option>
                 </el-select>
               </div>
-            </div>
-            <div class="añadir">
-              <el-button type="text" @click="dialogVisible = true"
-                >+ añadir items</el-button
+            </div><br>
+
+            <el-button
+            type="fileS"
+                style="background-color: #51c1ff; width: 900px; color: #ffffff"
+                icon="el-icon-search"
+                >Agregar ZIP</el-button
               >
-            </div>
             <br /><br />
 
             <div v-if="dialogVisible">
               <div class="row">
-                <!-- <div class="col-md-2">Cargo</div> -->
                 <div class="col-md-4" style="float: left">Código</div>
                 <div class="col-md-4" style="float: left">Descripcion</div>
                 <div class="col-md-4" style="float: left">Valor Unitario</div>
@@ -261,8 +262,8 @@
                 </div>
               </el-card>
             </div>
-          </el-tab-pane>
-        </el-tabs>
+          </el-tab-pane> -->
+        <!-- </el-tabs> -->
       </div>
     </div>
     <!-- </div> -->
@@ -270,9 +271,9 @@
 </template>
 
 <script>
-import moment from "moment";
-import axios from "axios";
-import TituloHeader from "@/components/utils/TituloHeader.vue";
+ import moment from "moment";
+ import axios from "axios";
+ import TituloHeader from "@/components/Utils/TituloHeader.vue";
 
 export default {
   components: {
@@ -292,8 +293,12 @@ export default {
 
       options: [
         {
-          Estado: "estado",
-        },
+          nombre: "CONSOLIDADO",
+          valor: 'C'
+        },{
+          nombre: "RE-PROCESADA",
+          valor: 'R'
+        }
       ],
       tableData: null,
     };
@@ -336,9 +341,9 @@ export default {
 
 <style>
 .menu {
-  margin-right: 205px;
+  margin-right: 105px;
   font-size: 18px;
-  margin-left: 205px;
+  margin-left: 105px;
 }
 .añadir {
   color: #51c1ff;
