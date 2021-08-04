@@ -53,12 +53,13 @@
             <span style="font-size: 20px">Facturas</span>
           </template>
           <el-menu-item-group>
+            <router-link :to="'/facturas'"><el-menu-item index="1-2">
+             <span>Consultar</span>
+            </el-menu-item></router-link> 
             <router-link :to="'/facturasFisicas'"><el-menu-item index="1-1">
               <span>Facturas Físicas</span>
             </el-menu-item></router-link>
-             <!-- <router-link :to="'/facturas'"><el-menu-item index="1-2">
-             <span>Facturas</span>
-            </el-menu-item></router-link> -->
+            
           </el-menu-item-group>
         </el-submenu>
 
