@@ -14,7 +14,7 @@
             > -->
             <div>
               <div class="row">
-                <div class="col-md-4" style="float: left">N° de Factura</div>
+                <div class="col-md-4" style="float: left">N° de RUC</div>
                 <div class="col-md-4" style="float: left">Fecha</div>
                 <div class="col-md-4" style="float: left">Estado</div>
                 <div class="col-md-4" style="float: left"></div>
@@ -22,7 +22,7 @@
 
               <div class="row">
                 <div class="col-md-4">
-                  <el-input style="width: 200px" v-model="numeroFac"></el-input>
+                  <el-input style="width: 200px" v-model="numeroRuc"></el-input>
                 </div>
                 <div class="col-md-4">
                   <el-date-picker
@@ -59,6 +59,7 @@
               <thead>
                 <tr>
                   <th class="text-center">Número Factura</th>
+                  <th class="text-center">Descripción</th>
                   <th class="text-center">Fecha</th>
                   <th class="text-center">Moneda</th>
                   <th class="text-center">IGV</th>
@@ -72,6 +73,9 @@
                 <tr v-for="item of tableData" :key="'facturas ' + item.numeroFactura">
                   <td>
                     <template>{{ item.numeroFactura }}</template>
+                  </td>
+                  <td>
+                    <template>{{ item.desGasto }}</template>
                   </td>
                   <td>
                     <template>{{ item.fechaDocumento }}</template>
@@ -290,7 +294,7 @@ export default {
       dialogVisible: false,
       value1: null,
       value2: null,
-
+      numeroRuc: null,
       options: [
         {
           nombre: "CONSOLIDADO",
@@ -317,7 +321,7 @@ export default {
               params:{
                 "numeroFac": this.numeroFac,
                 "fecInicio": fechaInicio,
-               "nroDocumento": localStorage.getItem('User'),
+               "nroDocumento": this.numeroRuc,
                 "fecFin": fechaFin,
                 "estado": 2
               }
