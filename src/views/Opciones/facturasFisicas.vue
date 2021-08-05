@@ -18,6 +18,7 @@
           </div>
           <br>
         </div>
+
         <br />
         <div id="cuerpo" class="cuerpo">
           <form method="post" name="selectForm">
@@ -36,94 +37,64 @@
                           >
                             <table cellpadding="3" cellspacing="1" width="100%">
                               <tbody>
-                        
-                                <tr>
-                                  <td width="30%" class="bgn"><b>RUC</b></td>
-                                  <td width="5%" class="bgn">:</td>
-                                  <td width="70%" class="bgn">
-                                    20999999990
-                                  </td>
-                                </tr>
                                 <tr>
                                   <td width="30%" class="bgn"><b>
                                     Tipo de comprobante</b>
                                   </td>
                                   <td width="5%" class="bgn">:</td>
                                   <td width="70%" class="bgn">
-                                    <select
-                                      style="width: 25%"
-                                      id="tip_doc"
-                                      class="bg"
-                                      name="tip_doc"
-                                    >
-                                      <option value="">-- Seleccione --</option>
-                                      <option value="00 - Factura">
-                                        00 - Factura
-                                      </option>
-                                    </select>
+                                   <el-select v-model="value" placeholder="Select">
+                                      <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                      </el-option>
+                                    </el-select>
                                   </td>
-                                </tr>
+                                </tr><br>
                                 <tr>
                                   <td width="30%" class="bgn"><b>
                                     Número de serie</b>
                                   </td>
                                   <td width="5%" class="bgn">:</td>
                                   <td width="70%" class="bgn">
-                                    <input
-                                      type="text"
-                                      class="form-text"
-                                      name="serie"
-                                      maxlength="4"
-                                      tabindex="3"
-                                      onblur="completar()"
-                                    />
+                                    <el-input style="width:30%"></el-input>
                                   </td>
-                                </tr>
+                                </tr><br>
+                                <tr>
+                                  <td width="30%" class="bgn"><b>RUC</b></td>
+                                  <td width="5%" class="bgn">:</td>
+                                  <td width="70%" class="bgn">
+                                    <el-input style="width:30%"></el-input>
+                                  </td>
+                                </tr><br>
+                                
+                                
                                 <tr>
                                   <td width="30%" class="bgn"><b>
                                     Número del comprobante</b>
                                   </td>
                                   <td width="5%" class="bgn">:</td>
                                   <td width="70%" class="bgn">
-                                    <input
-                                      type="text"
-                                      class="form-text"
-                                      name="correlativo"
-                                      maxlength="15"
-                                      tabindex="4"
-                                    />
+                                   <el-input style="width:30%"></el-input>
                                   </td>
-                                </tr>
+                                </tr><br>
                                 <tr>
                                   <td width="30%" class="bgn"><b>
                                     Fecha de emisión</b>
                                   </td>
                                   <td width="5%" class="bgn">:</td>
                                   <td width="70%" class="bgn">
-                                    <input
-                                      type="text"
-                                      name="myDateFrom"
-                                      maxlength="10"
-                                      class="form-text"
-                                      tabindex="4"
-                                    />
+                                    <el-date-picker
+                                    style="width:30%"
+                                      v-model="value1"
+                                      type="date"
+                                      placeholder="Pick a day">
+                                    </el-date-picker>
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td width="30%" class="bgn"><b>
-                                    Número de autorización</b>
-                                  </td>
-                                  <td width="5%" class="bgn">:</td>
-                                  <td width="70%" class="bgn">
-                                    <input
-                                      type="text"
-                                      class="form-text"
-                                      name="autorizacion"
-                                      maxlength="15"
-                                      tabindex="8"
-                                    />
-                                  </td>
-                                </tr>
+                               
                               </tbody>
                             </table>
                           </td>
@@ -139,18 +110,35 @@
         <br />
         <div id="detalle" class="detalle">
 
-        <div class="detalle-izquierda"><br><br><br><br><br>
-            <el-button @click="agregarDetalle()"> + Insertar Detalle</el-button><br><br><br><br><br>
-          </div>
-          <div class="total-detalle">
-            
-            <p><b>Sub total: </b><input></p>
-            <p><b>Descuentos: </b><input></p>
-            <p><b>IGV: </b><input></p>
-            <p><b>Anticipios: </b><input></p>
-            <p><b>Otros Tributos: </b><input></p>
-            <p><b>Importe Total: </b><input></p>
-          </div>
+        <div >
+          <table id="example2" class="table table-hover table-sm mb-2">
+                    <thead>
+                      <tr>
+                        <th class="text-center" width="10%">Cantidad</th>
+                        <th class="text-center" width="35%">Descripcion</th>
+                        <th class="text-center" width="10%">Valor Unitario</th>
+                        <th class="text-center" width="10%">Importe</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <template></template>
+                        </td>
+                        <td>
+                          <template></template>
+                        </td>
+                        <td>
+                          <template></template>
+                        </td>
+                        <td>
+                          <template></template>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            <el-button @click="agregarDetalle()"> + Insertar Detalle</el-button>
+          </div><br>
 
         </div>
 
@@ -172,9 +160,11 @@
                 </div><br>
                
               <div><p>Valor Unitario:<el-input v-model="valorUnitario"></el-input></p></div>
+              <div><p>Importe:<el-input v-model="valorUnitario"></el-input></p></div>
                
               
                 <div slot="footer" class="dialog-footer">
+                   
                   <el-button
                     type="primary"
                     @click="
@@ -189,7 +179,7 @@
 
       </div>
 
-      <div><br><el-button type="primary" >Guardar Comprobante <i class="el-icon-upload2"></i></el-button><br><br></div>
+      <div style="margin-right: 7%;"><br><el-button type="primary" >Guardar Comprobante <i class="el-icon-upload2"></i></el-button><br><br></div>
     </div>
   </div>
 </template>
@@ -202,6 +192,28 @@ export default {
   },
   data(){
     return{
+
+        //select
+        options: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }, {
+          value: 'Option3',
+          label: 'Option3'
+        }, {
+          value: 'Option4',
+          label: 'Option4'
+        }, {
+          value: 'Option5',
+          label: 'Option5'
+        }],
+        value: '',
+
+        //variables
+      value1:null,
       innerVisible:false,
       Cantidad:null,
       observacion:null,
@@ -227,15 +239,6 @@ export default {
   background-color: white;
   margin-left: 20px;
 }
-.cabecera {
-  margin-left: 30px;
-  margin-right: 30px;
-  border-bottom: 3px solid rgb(225, 225, 228);
-  columns: 2;
-}
-.cabecera-detalle {
-  border: 3px solid #b0b0b0;
-}
 .cuerpo {
   margin-left: 30px;
   margin-right: 30px;
@@ -244,9 +247,5 @@ export default {
 .detalle {
   margin-left: 30px;
   margin-right: 30px;
-  columns: 2;
-}
-.total-detalle{
-  border: 1px solid #b0b0b0;
 }
 </style>
