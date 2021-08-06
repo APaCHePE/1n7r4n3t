@@ -66,7 +66,7 @@
                   <th class="text-center">Importe</th>
                   <th class="text-center">Saldo</th>
                   <th class="text-center">estado</th>
-                  <!-- <th class="text-center" width="7%"></th> -->
+                  <th class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -95,6 +95,12 @@
                   <td>
                     <template>{{ item.estado }}</template>
                   </td>
+                  <td>
+                    <template>  
+                      <el-button @click="Aprobar(item)" type="success" icon="el-icon-check" circle></el-button>
+                      <el-button @click="Rechazar(item)" type="danger" icon="el-icon-close" circle></el-button>
+                    </template>
+                  </td>
                   <!-- <td>
                     <template
                       ><el-button
@@ -107,7 +113,7 @@
                 </tr>
               </tbody>
             </table>
-            <el-dialog
+            <!-- <el-dialog
               title="Detalle"
               :visible.sync="dialogVisibleDetalle"
               width="50%"
@@ -154,7 +160,7 @@
               <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">Cerrar</el-button>
               </span>
-            </el-dialog>
+            </el-dialog> -->
           <!-- </el-tab-pane> -->
           <!-- <el-tab-pane>
             <span slot="label" class="menu"
@@ -308,6 +314,31 @@ export default {
     };
   },
   methods: {
+    Aprobar(detalle){
+      var dataPost=new FormData();
+          dataPost.append('numeroFactura',detalle.numeroFactura);
+          dataPost.append('estado',1);
+         axios
+        .post("http://localhost:8090/api/admin/estado-factura",dataPost)
+        .then((response) => {
+          console.log(response);})
+        .catch((e) => {
+          console.log(e)
+        });
+
+    },
+    Rechazar(detalle){
+     var dataPost=new FormData();
+          dataPost.append('numeroFactura',detalle.numeroFactura);
+          dataPost.append('estado',2);
+         axios
+        .post("http://localhost:8090/api/admin/estado-factura",dataPost)
+        .then((response) => {
+          console.log(response);})
+        .catch((e) => {
+          console.log(e)
+        });
+    },
     BuscarFacturas() {
       let fechaInicio =
         this.fecha == null ? null : moment(this.fecha[0]).format("YYYY-MM-DD");
