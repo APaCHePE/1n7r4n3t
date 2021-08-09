@@ -58,49 +58,82 @@
             <table id="example2" class="table table-hover table-sm mb-2">
               <thead>
                 <tr>
-                  <th class="text-center">Número Factura</th>
-                  <th class="text-center">Descripción</th>
+                  <th class="text-center">N° Factura</th>
+                  <th class="text-center">Proveedor</th>
                   <th class="text-center">Fecha</th>
                   <th class="text-center">Moneda</th>
                   <th class="text-center">IGV</th>
                   <th class="text-center">Importe</th>
-                  <th class="text-center">Saldo</th>
-                  <th class="text-center">estado</th>
+                  <th class="text-center">RUC</th>
+                  <th class="text-center">N° de Orden</th>
+                  <th class="text-center">Estado</th>
                   <th class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item of tableData" :key="'facturas ' + item.numeroFactura">
+                <tr v-for="item of tableData" :key="'facturas ' + item.id_comprobante">
                   <td>
-                    <template>{{ item.numeroFactura }}</template>
+                    <template>{{ item.numero }}</template>
                   </td>
                   <td>
-                    <template>{{ item.desGasto }}</template>
+                    <template>{{ item.proveedor_nombre_comercial }}</template>
                   </td>
                   <td>
-                    <template>{{ item.fechaDocumento }}</template>
+                    <template>{{ item.fecha_emision }}</template>
                   </td>
                   <td>
-                    <template>{{ item.moneda }}</template>
+                    <template>{{ item.nombre_moneda }}</template>
                   </td>
                   <td>
-                    <template>{{ item.igv }}</template>
+                    <template>{{ item.importe_igv }}</template>
                   </td>
                   <td>
-                    <template>{{ item.importeSoles }}</template>
+                    <template>{{ item.importe_total }}</template>
                   </td>
                   <td>
-                    <template>{{ item.saldo }}</template>
+                    <template>{{ item.proveedor_numero_documento }}</template>
                   </td>
                   <td>
-                    <template>{{ item.estado }}</template>
+                    <template>{{ item.orden_numero }}</template>
+                  </td>
+                  <td>
+                    <template>{{ item.nombre_estado }}</template>
                   </td>
                   <td>
                     <template>  
-                      <el-button @click="Aprobar(item)" type="success" icon="el-icon-check" circle></el-button>
-                      <el-button @click="Rechazar(item)" type="danger" icon="el-icon-close" circle></el-button>
+                      <el-button @click="dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
+                      <el-button @click="dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
                     </template>
-                  </td>
+                  </td> 
+                  <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstado"
+                    width="30%">
+                  <span>Seguro que desea comfirmar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstado = false">No</el-button>
+                    <el-button type="primary" @click="Aprobar(item)">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstadoDenegado"
+                    width="30%">
+                  <span>Seguro que desea rechazar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstadoDenegado = false">No</el-button>
+                    <el-button type="primary" @click="IngresarObservacion = true">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Observación"
+                    :visible.sync="IngresarObservacion"
+                    width="20%">
+                  <el-input v-model="observacion" autocomplete="off"></el-input>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="Rechazar(item)">Guardar</el-button>
+                  </span>
+                </el-dialog>
                   <!-- <td>
                     <template
                       ><el-button
@@ -113,6 +146,8 @@
                 </tr>
               </tbody>
             </table>
+         
+
             <!-- <el-dialog
               title="Detalle"
               :visible.sync="dialogVisibleDetalle"
@@ -276,7 +311,6 @@
         <!-- </el-tabs> -->
       </div>
     </div>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -291,6 +325,10 @@ export default {
   },
   data() {
     return {
+      dialogEstadoDenegado:false,
+      dialogEstado:false,
+      IngresarObservacion:false,
+      observacion:null,
       numeroFac: null, //null,
       fecha: null,
       fechaInicio: null,
@@ -314,27 +352,53 @@ export default {
     };
   },
   methods: {
+
     Aprobar(detalle){
-      var dataPost=new FormData();
-          dataPost.append('numeroFactura',detalle.numeroFactura);
-          dataPost.append('estado',1);
+      this.dialogEstado = false
+      console.log(detalle)
          axios
-        .post("http://localhost:8090/api/admin/estado-factura",dataPost)
+        .get("http://localhost:8090/api/admin/estado-factura",{
+          params:{
+            idComprobante : detalle.id_comprobante,
+            estado : 10
+          }
+        })
         .then((response) => {
-          console.log(response);})
+          console.log(response);
+          this.BuscarFacturas();
+          })
         .catch((e) => {
           console.log(e)
         });
 
     },
     Rechazar(detalle){
-     var dataPost=new FormData();
-          dataPost.append('numeroFactura',detalle.numeroFactura);
-          dataPost.append('estado',2);
+      this.dialogEstadoDenegado=false
+      this.IngresarObservacion=false
          axios
-        .post("http://localhost:8090/api/admin/estado-factura",dataPost)
+        .get("http://localhost:8090/api/admin/estado-factura",{
+           params:{
+            idComprobante : detalle.id_comprobante,
+            estado : 11,
+            observacion : this.observacion,
+            usuarioModificador : 1
+          }
+        })
         .then((response) => {
-          console.log(response);})
+          console.log(response);
+          this.BuscarFacturas();
+          if(response.data.esCorrecto){
+            this.observacion = ' '
+          }
+          else {
+            this.$swal({
+            icon: 'error',
+            title: 'Error',
+            text: "Intentelo más tarde"
+          });
+          }
+          
+          })
         .catch((e) => {
           console.log(e)
         });
@@ -348,13 +412,13 @@ export default {
       console.log(fechaFin);
        axios
           .get(
-            "http://localhost:8090/api/admin/getFacturas", {
+            "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
                 "numeroFac": this.numeroFac,
                 "fecInicio": fechaInicio,
                "nroDocumento": this.numeroRuc,
                 "fecFin": fechaFin,
-                "estado": 2
+                // "estado": 9
               }
             }
           )
