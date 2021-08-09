@@ -360,7 +360,9 @@ export default {
         .get("http://localhost:8090/api/admin/estado-factura",{
           params:{
             idComprobante : detalle.id_comprobante,
-            estado : 10
+            estado : 10,
+            observacion : 'ninguna',
+            usuarioModificador : 1
           }
         })
         .then((response) => {
