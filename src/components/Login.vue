@@ -47,7 +47,7 @@
         </div>
       </div>
       <router-link to="/menu"
-        ><button class="btn btn-primary btn-block" tabindex="4">
+        ><button class="btn btn-primary btn-block" @click="validarLogin()">
           Ingresar
         </button></router-link
       >
@@ -73,6 +73,12 @@ export default {
   created() {
     
   },
+  methods:{
+    validarLogin(){
+    localStorage.setItem("User", this.user );
+    }
+
+  },
   computed: {
     login: {
       // getter
@@ -86,7 +92,6 @@ export default {
       },
     },
   },
-  methods: {},
 };
 </script>
 
