@@ -366,8 +366,9 @@ export default {
           params:{
             idComprobante : detalle.id_comprobante,
             estado : 10,
+            id008Trazabilidad:28,
             observacion : 'ninguna',
-            usuarioModificador : 1
+            usuarioModificador : localStorage.getItem('User'),
           }
         })
         .then((response) => {
@@ -387,8 +388,9 @@ export default {
            params:{
             idComprobante : detalle.id_comprobante,
             estado : 11,
+            id008Trazabilidad: 29,
             observacion : this.observacion,
-            usuarioModificador : 1
+            usuarioModificador : localStorage.getItem('User'),
           }
         })
         .then((response) => {
