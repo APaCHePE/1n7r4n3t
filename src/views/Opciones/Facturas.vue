@@ -100,10 +100,12 @@
                     <template>{{ item.nombre_estado }}</template>
                   </td>
                   <td>
-                    <template>  
-                      <el-button @click="dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
-                      <el-button @click="dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
+                    <template v-if="item.id_004_estado==9 ">  
+                      <el-button @click="previo(item),dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
+                      <el-button @click="previo(item),dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
                     </template>
+                    <template v-else-if="10">APROBADO</template>
+                    <template v-else-if="11">RECHAZADO</template>
                   </td> 
                   <el-dialog
                     title="Estado"
@@ -112,7 +114,7 @@
                   <span>Seguro que desea comfirmar el documento?</span>
                   <span slot="footer" class="dialog-footer">
                     <el-button type="danger"  @click="dialogEstado = false">No</el-button>
-                    <el-button type="primary" @click="Aprobar(item)">Si</el-button>
+                    <el-button type="primary" @click="Aprobar(itemSeleccionado)">Si</el-button>
                   </span>
                 </el-dialog>
                 <el-dialog
@@ -131,7 +133,7 @@
                     width="20%">
                   <el-input v-model="observacion" autocomplete="off"></el-input>
                   <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="Rechazar(item)">Guardar</el-button>
+                    <el-button type="primary" @click="Rechazar(itemSeleccionado)">Guardar</el-button>
                   </span>
                 </el-dialog>
                   <!-- <td>
@@ -325,6 +327,7 @@ export default {
   },
   data() {
     return {
+      itemSeleccionado: null,
       dialogEstadoDenegado:false,
       dialogEstado:false,
       IngresarObservacion:false,
@@ -352,7 +355,9 @@ export default {
     };
   },
   methods: {
-
+    previo(param){
+      this.itemSeleccionado = param
+    },
     Aprobar(detalle){
       this.dialogEstado = false
       console.log(detalle)
@@ -361,8 +366,9 @@ export default {
           params:{
             idComprobante : detalle.id_comprobante,
             estado : 10,
+            id008Trazabilidad:28,
             observacion : 'ninguna',
-            usuarioModificador : 1
+            usuarioModificador : localStorage.getItem('User'),
           }
         })
         .then((response) => {
@@ -382,8 +388,9 @@ export default {
            params:{
             idComprobante : detalle.id_comprobante,
             estado : 11,
+            id008Trazabilidad: 29,
             observacion : this.observacion,
-            usuarioModificador : 1
+            usuarioModificador : localStorage.getItem('User'),
           }
         })
         .then((response) => {
