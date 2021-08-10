@@ -80,16 +80,16 @@
 
 
             <el-row :gutter="10">
-              <el-col :xs="24" :md="4">
+              <el-col :xs="24" :md="6">
                 <label class="col-form-label">Fecha Emisión </label>
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.fechaEmision"
+                  v-model="currentDate"
                   disabled
                 />
               </el-col>
-              <el-col :xs="24" :md="4" >
+              <el-col :xs="24" :md="6" >
                 <label class="col-form-label"
                   >SubTotal
                 </label>
@@ -100,7 +100,7 @@
                   disabled
                 />
               </el-col>
-              <el-col :xs="24" :md="4" >
+              <el-col :xs="24" :md="6" >
                 <label class="col-form-label"
                   >IGV
                 </label>
@@ -111,7 +111,33 @@
                   disabled
                 />
               </el-col>
-              <el-col :xs="24" :md="4" >
+              <el-col :xs="24" :md="6" >
+                <label class="col-form-label"
+                  >Anticipios
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="detalle.importeAnticipios"
+                  disabled
+                />
+              </el-col>
+           
+            </el-row>
+
+            <el-row :gutter="10">
+              <el-col :xs="24" :md="6" >
+                <label class="col-form-label"
+                  >Descuentos
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="detalle.importeDescuentos"
+                  disabled
+                />
+              </el-col>
+              <el-col :xs="24" :md="6" >
                 <label class="col-form-label"
                   >Importe total
                 </label>
@@ -122,7 +148,7 @@
                   disabled
                 />
               </el-col>
-              <el-col :xs="24" :md="4" >
+              <el-col :xs="24" :md="6" >
                 <label class="col-form-label"
                   > Moneda
                 </label>
@@ -133,7 +159,7 @@
                   disabled
                 />
               </el-col>
-              <el-col :xs="24" :md="4" >
+              <el-col :xs="24" :md="6" >
                 <label class="col-form-label"
                   > Estado
                 </label>
@@ -145,7 +171,9 @@
                 />
               </el-col>
               
-            </el-row>
+            </el-row> 
+
+
 
             <el-row :gutter="10" v-if="accion==9">
               <el-col :xs="24" :md="12">
@@ -264,6 +292,7 @@
 </template>
       
 <script>
+import moment from "moment";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
 export default {
@@ -278,6 +307,7 @@ export default {
         IngresarObservacion:false,
         observacion:null,
         accion:null,
+        currentDate:null,
 
           idComprobante :null,
           detalle:{},
@@ -303,10 +333,13 @@ export default {
             this.detalleFactura = response.data.result[0].listaComprobanteDetalle
             this.detalleTrazabilidad = response.data.result[0].listaComprobanteTrazabilidad
             this.accion = response.data.result[0].id004Estado
+            this.currentDate =  moment(response.data.result[0].fechaEmision).format("DD-MM-YYYY");
+            
           })
           .catch((e) => console.log(e));
 
       },
+
         Aprobar(){
       this.dialogEstado = false
       let detalle = this.detalle
