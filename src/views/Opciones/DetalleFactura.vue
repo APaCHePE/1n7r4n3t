@@ -47,6 +47,7 @@
               </el-col>
               
             </el-row>
+
             <el-row :gutter="10">
               <el-col :xs="24" :md="8">
                   <label class="col-form-label">Dirección</label>
@@ -76,6 +77,8 @@
                 />
               </el-col>
             </el-row>
+
+
             <el-row :gutter="10">
               <el-col :xs="24" :md="4">
                 <label class="col-form-label">Fecha Emisión </label>
@@ -143,6 +146,16 @@
               </el-col>
               
             </el-row>
+
+            <el-row :gutter="10" v-if="accion==9">
+              <el-col :xs="24" :md="12">
+                  <el-button type="primary" @click="dialogEstado = true" style="width:400px;height:50px;font-size:17px;" plain>Aprobar</el-button>
+                </el-col>
+                <el-col :xs="24" :md="12">
+                    <el-button type="danger" @click="dialogEstadoDenegado = true" style="width:400px;height:50px;font-size:17px;" plain>Rechazar</el-button>
+                </el-col>
+            </el-row>
+
           </el-row>
         <el-row :gutter="10">
             <el-col :md="24">
@@ -194,9 +207,9 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item of detalleTrazabilidad" :key="'detalleFac ' + item.id_comprobante_detalle">
+                        <tr v-for="item of detalleTrazabilidad" :key="'detalletraza ' + item.id_comprobante_trazabilidad">
                           <td width="10%">{{item.fecha_registro}}</td>
-                          <td width="20%">{{item.id_008_estado_trazabilidad}}</td>
+                          <td width="20%">{{item.nombre_estado}}</td>
                           <td width="40%">{{item.observacion}}</td>
                           <td width="15%">{{item.usuario_registro}}</td>
                         </tr>
@@ -214,6 +227,38 @@
       </div>
       </div>
       </div>
+                  <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstado"
+                    width="30%">
+                  <span>Seguro que desea comfirmar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstado = false">No</el-button>
+                    <el-button type="primary" @click="Aprobar()">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstadoDenegado"
+                    width="30%">
+                  <span>Seguro que desea rechazar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstadoDenegado = false">No</el-button>
+                    <el-button type="primary" @click="IngresarObservacion = true">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Observación"
+                    :visible.sync="IngresarObservacion"
+                    width="20%">
+                  <el-input v-model="observacion" autocomplete="off"></el-input>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="Rechazar()">Guardar</el-button>
+                  </span>
+                </el-dialog>
+
+
+
       </div>
 
 </template>
@@ -227,6 +272,13 @@ export default {
   },
   data(){
       return{
+        itemSeleccionado: null,
+        dialogEstadoDenegado:false,
+        dialogEstado:false,
+        IngresarObservacion:false,
+        observacion:null,
+        accion:null,
+
           idComprobante :null,
           detalle:null,
           detalleFactura: null,
@@ -234,7 +286,11 @@ export default {
       }
   },
   created(){
-       axios
+      this.consultar();    
+  },
+  methods:{
+      consultar(){
+           axios
           .get(
             "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
@@ -246,10 +302,68 @@ export default {
             this.detalle = response.data.result[0]
             this.detalleFactura = response.data.result[0].listaComprobanteDetalle
             this.detalleTrazabilidad = response.data.result[0].listaComprobanteTrazabilidad
+            this.accion = response.data.result[0].id_004_estado
+
             
           })
           .catch((e) => console.log(e));
-    
+
+      },
+        Aprobar(){
+      this.dialogEstado = false
+      let detalle = this.detalle
+         axios
+        .get("http://localhost:8090/api/admin/estado-factura",{
+          params:{
+            idComprobante : detalle.id_comprobante,
+            estado : 10,
+            id008Trazabilidad:28,
+            observacion : 'ninguna',
+            usuarioModificador : localStorage.getItem('User'),
+          }
+        })
+        .then((response) => {
+          console.log(response);
+          this.consultar();
+          })
+        .catch((e) => {
+          console.log(e)
+        });
+
+    },
+    Rechazar(){
+      this.dialogEstadoDenegado=false
+      this.IngresarObservacion=false
+       let detalle = this.detalle
+         axios
+        .get("http://localhost:8090/api/admin/estado-factura",{
+           params:{
+            idComprobante : detalle.id_comprobante,
+            estado : 11,
+            id008Trazabilidad: 29,
+            observacion : this.observacion,
+            usuarioModificador : localStorage.getItem('User'),
+          }
+        })
+        .then((response) => {
+          console.log(response);
+          this.consultar();
+          if(response.data.esCorrecto){
+            this.observacion = ' '
+          }
+          else {
+            this.$swal({
+            icon: 'error',
+            title: 'Error',
+            text: "Intentelo más tarde"
+          });
+          }
+          
+          })
+        .catch((e) => {
+          console.log(e)
+        });
+    },
   }
       
 }

@@ -104,36 +104,6 @@
                     <template v-else-if="10">APROBADO</template>
                     <template v-else-if="11">RECHAZADO</template> -->
 
-
-                  <el-dialog
-                    title="Estado"
-                    :visible.sync="dialogEstado"
-                    width="30%">
-                  <span>Seguro que desea comfirmar el documento?</span>
-                  <span slot="footer" class="dialog-footer">
-                    <el-button type="danger"  @click="dialogEstado = false">No</el-button>
-                    <el-button type="primary" @click="Aprobar(itemSeleccionado)">Si</el-button>
-                  </span>
-                </el-dialog>
-                <el-dialog
-                    title="Estado"
-                    :visible.sync="dialogEstadoDenegado"
-                    width="30%">
-                  <span>Seguro que desea rechazar el documento?</span>
-                  <span slot="footer" class="dialog-footer">
-                    <el-button type="danger"  @click="dialogEstadoDenegado = false">No</el-button>
-                    <el-button type="primary" @click="IngresarObservacion = true">Si</el-button>
-                  </span>
-                </el-dialog>
-                <el-dialog
-                    title="Observación"
-                    :visible.sync="IngresarObservacion"
-                    width="20%">
-                  <el-input v-model="observacion" autocomplete="off"></el-input>
-                  <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="Rechazar(itemSeleccionado)">Guardar</el-button>
-                  </span>
-                </el-dialog>
                 </tr>
               </tbody>
             </table>
