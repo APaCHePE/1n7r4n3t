@@ -1,17 +1,11 @@
 <template>
   <div class="page-container">
-    <!-- <div class="main-content body-full positionRight"> -->
     <div
       class="content contentTG left-sidebar-toggle contenedor-opciones"
       style="min-height: 592px; margin-left: 70px"
     >
       <titulo-header>Consulta Facturas</titulo-header><br />
       <div class="container">
-        <!-- <el-tabs type="border-card">
-          <el-tab-pane>
-            <span slot="label" class="menu"
-              ><i class="el-icon-search"></i> Busqueda</span
-            > -->
             <div>
               <div class="row">
                 <div class="col-md-4" style="float: left">N° de RUC</div>
@@ -100,13 +94,17 @@
                     <template>{{ item.nombre_estado }}</template>
                   </td>
                   <td>
-                    <template v-if="item.id_004_estado==9 ">  
+                   <u @click="verDetalle(item)">ver detalle</u>
+                  </td> 
+
+                    <!-- <template v-if="item.id_004_estado==9 ">  
                       <el-button @click="previo(item),dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
                       <el-button @click="previo(item),dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
                     </template>
                     <template v-else-if="10">APROBADO</template>
-                    <template v-else-if="11">RECHAZADO</template>
-                  </td> 
+                    <template v-else-if="11">RECHAZADO</template> -->
+
+
                   <el-dialog
                     title="Estado"
                     :visible.sync="dialogEstado"
@@ -136,181 +134,9 @@
                     <el-button type="primary" @click="Rechazar(itemSeleccionado)">Guardar</el-button>
                   </span>
                 </el-dialog>
-                  <!-- <td>
-                    <template
-                      ><el-button
-                        type="text"
-                        @click="mostrarDetalleFacturadialog(item)"
-                        >VER</el-button
-                      ></template
-                    >
-                  </td> -->
                 </tr>
               </tbody>
             </table>
-         
-
-            <!-- <el-dialog
-              title="Detalle"
-              :visible.sync="dialogVisibleDetalle"
-              width="50%"
-              :before-close="handleClose"
-            >
-              <el-form>
-                <el-form-item label="Importe">
-                  <table id="example2" class="table table-hover table-sm mb-2">
-                    <thead>
-                      <tr>
-                        <th class="text-center">Código Producto</th>
-                        <th class="text-center">Producto</th>
-                        <th class="text-center">Unida</th>
-                        <th class="text-center">Item</th>
-                        <th class="text-center">Precio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="(item2, index2) of detalleOrden"
-                        :key="'Ordenes ' + index2"
-                      >
-                        <td>
-                          <template>{{ item2.codigo_producto }}</template>
-                        </td>
-                        <td>
-                          <template>{{ item2.producto }}</template>
-                        </td>
-                        <td>
-                          <template>{{ item2.unidad }}</template>
-                        </td>
-                        <td>
-                          <template>{{ item2.tipo_item }}</template>
-                        </td>
-                        <td>
-                          <template>{{ item2.precio }}</template>
-                        </td>
-                        
-                      </tr>
-                    </tbody>
-                  </table>
-                </el-form-item>
-              </el-form>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">Cerrar</el-button>
-              </span>
-            </el-dialog> -->
-          <!-- </el-tab-pane> -->
-          <!-- <el-tab-pane>
-            <span slot="label" class="menu"
-              ><i class="el-icon-folder-opened"></i> Añadir</span
-            >
-            <br />
-            <div class="row">
-              <div class="col-md-4" style="float: left">
-                Fecha de Vencimiento
-              </div>
-              <div class="col-md-4" style="float: left">Fecha de Emisión</div>
-              <div class="col-md-4" style="float: left">Tipo Moneda</div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" style="float: left">
-                <el-date-picker
-                  v-model="value1"
-                  type="date"
-                  placeholder="Pick a day"
-                >
-                </el-date-picker>
-              </div>
-              <div class="col-md-4" style="float: left">
-                <el-date-picker
-                  v-model="value2"
-                  type="date"
-                  placeholder="Pick a day"
-                >
-                </el-date-picker>
-              </div>
-              <div class="col-md-4" style="float: left">
-                <el-select v-model="Estado" placeholder="Select">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.Estado"
-                    :label="item.Estado"
-                    :value="item.Estado"
-                  >
-                  </el-option>
-                </el-select>
-              </div>
-            </div><br>
-
-            <el-button
-            type="fileS"
-                style="background-color: #51c1ff; width: 900px; color: #ffffff"
-                icon="el-icon-search"
-                >Agregar ZIP</el-button
-              >
-            <br /><br />
-
-            <div v-if="dialogVisible">
-              <div class="row">
-                <div class="col-md-4" style="float: left">Código</div>
-                <div class="col-md-4" style="float: left">Descripcion</div>
-                <div class="col-md-4" style="float: left">Valor Unitario</div>
-              </div>
-              <div class="row">
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-              </div>
-              <br />
-
-              <div class="row">
-                <div class="col-md-4" style="float: left">IGV</div>
-                <div class="col-md-4" style="float: left">Valor Venta</div>
-              </div>
-              <div class="row">
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-button>+ agregar</el-button>
-                </div>
-              </div>
-              <br /><br />
-
-              <el-card class="box-card">
-                <div slot="header" class="clearfix">
-                  <span><h2>ITEMS</h2></span>
-                  <el-table :data="tableData2" style="width: 100%">
-                    <el-table-column prop="date" label="ITEM" width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="name"
-                      label="UNIDAD MEDIDA"
-                      width="180"
-                    >
-                    </el-table-column>
-                    <el-table-column prop="address" label="CANTIDAD">
-                    </el-table-column>
-                    <el-table-column prop="address" label="CODIGO">
-                    </el-table-column>
-                    <el-table-column prop="address" label="DESCRIPCIÓN">
-                    </el-table-column>
-                    <el-table-column prop="address" label="VALOR UNITARIO">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-            </div>
-          </el-tab-pane> -->
-        <!-- </el-tabs> -->
       </div>
     </div>
   </div>
@@ -355,6 +181,12 @@ export default {
     };
   },
   methods: {
+    verDetalle(detalle){
+    let ruta = "/DetalleFactura";
+    let routeData = this.$router.resolve({path:`${ruta}/${detalle.id_comprobante}`}); 
+    window.open(routeData.href,'_blank');
+
+    },
     previo(param){
       this.itemSeleccionado = param
     },

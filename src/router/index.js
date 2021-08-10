@@ -4,9 +4,9 @@ import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
 import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
-// import MisContactos from "../views/Opciones/MisContactos.vue";
+import DetalleFactura from "../views/Opciones/DetalleFactura.vue";
 import facturasFisicas from "../views/Opciones/facturasFisicas.vue";
- import Facturas from "../views/Opciones/Facturas.vue";
+import Facturas from "../views/Opciones/Facturas.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +40,11 @@ const routes = [
         path: '/facturas',
         name: "Facturas",
         component: Facturas 
+      },
+      {
+        path: '/DetalleFactura/:idComprobante',
+        name: "DetalleFactura",
+        component: DetalleFactura 
       }
     ]
   },
