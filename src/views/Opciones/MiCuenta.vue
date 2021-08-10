@@ -22,7 +22,7 @@
               <div class="col-md-3">
                 <input
                   class="form-control form-control-merge"
-                  v-model="item.usuario"
+                  v-model="item.persona.nombreCompleto"
                   disabled
                 />
               </div>

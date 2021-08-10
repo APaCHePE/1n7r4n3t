@@ -100,12 +100,12 @@
                     <template>{{ item.nombre_estado }}</template>
                   </td>
                   <td>
-                    <!-- <template v-if="item.id_004_estado==9 ">   -->
+                    <template v-if="item.id_004_estado==9 ">  
                       <el-button @click="previo(item),dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
                       <el-button @click="previo(item),dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
-                    <!-- </template> -->
-                    <!-- <template v-else-if="10">APROBADO</template>
-                    <template v-else-if="11">RECHAZADO</template> -->
+                    </template>
+                    <template v-else-if="10">APROBADO</template>
+                    <template v-else-if="11">RECHAZADO</template>
                   </td> 
                   <el-dialog
                     title="Estado"
