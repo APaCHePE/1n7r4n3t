@@ -21,7 +21,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.proveedor_nombre_comercial"
+                  v-model="detalle.proveedorNombreComercial"
                   disabled
                 />
               </el-col>
@@ -31,7 +31,7 @@
                   <input
                     type="text"
                     class="form-control"
-                   v-model="detalle.proveedor_numero_documento"
+                   v-model="detalle.proveedorNumeroDocumento"
                     disabled
                   />
                 </template>
@@ -41,7 +41,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.orden_numero"
+                  v-model="detalle.ordenNumero"
                   disabled
                 />
               </el-col>
@@ -54,7 +54,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="detalle.proveedor_direccion"
+                    v-model="detalle.proveedorDireccion"
                     disabled
                   />
                 </el-col>
@@ -63,7 +63,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="detalle.proveedor_zona"
+                    v-model="detalle.proveedorZona"
                     disabled
                   />
                 </el-col>
@@ -85,7 +85,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.fecha_emision"
+                  v-model="detalle.fechaEmision"
                   disabled
                 />
               </el-col>
@@ -96,7 +96,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.importe_sub_total"
+                  v-model="detalle.importeSubTotal"
                   disabled
                 />
               </el-col>
@@ -107,7 +107,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.importe_igv"
+                  v-model="detalle.importeIgv"
                   disabled
                 />
               </el-col>
@@ -118,7 +118,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.importe_total"
+                  v-model="detalle.importeTotal"
                   disabled
                 />
               </el-col>
@@ -129,7 +129,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.nombre_moneda"
+                  v-model="detalle.nombreMoneda"
                   disabled
                 />
               </el-col>
@@ -140,7 +140,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  v-model="detalle.nombre_estado"
+                  v-model="detalle.nombreEstado"
                   disabled
                 />
               </el-col>
@@ -176,11 +176,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item of detalleFactura" :key="'detalleFac ' + item.id_comprobante_detalle">
+                        <tr v-for="item of detalleFactura" :key="'detalleFac ' + item.idComprobanteDetalle">
                           <td width="10%">{{item.cantidad}}</td>
-                          <td width="20%">{{item.unidad_medida}}</td>
+                          <td width="20%">{{item.unidadMedida}}</td>
                           <td width="40%">{{item.descripcion}}</td>
-                          <td width="15%">{{item.valor_unitario}}</td>
+                          <td width="15%">{{item.valorUnitario}}</td>
                           <td width="15%">{{item.icbper}}</td>
                         </tr>
                       </tbody>
@@ -207,11 +207,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item of detalleTrazabilidad" :key="'detalletraza ' + item.id_comprobante_trazabilidad">
-                          <td width="10%">{{item.fecha_registro}}</td>
-                          <td width="20%">{{item.nombre_estado}}</td>
+                        <tr v-for="item of detalleTrazabilidad" :key="'detalletraza ' + item.idComprobanteTrazabilidad">
+                          <td width="10%">{{item.fechaRegistro}}</td>
+                          <td width="20%">{{item.nombreEstado}}</td>
                           <td width="40%">{{item.observacion}}</td>
-                          <td width="15%">{{item.usuario_registro}}</td>
+                          <td width="15%">{{item.usuarioRegistro}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -280,7 +280,7 @@ export default {
         accion:null,
 
           idComprobante :null,
-          detalle:null,
+          detalle:{},
           detalleFactura: null,
           detalleTrazabilidad:null
       }
@@ -302,9 +302,7 @@ export default {
             this.detalle = response.data.result[0]
             this.detalleFactura = response.data.result[0].listaComprobanteDetalle
             this.detalleTrazabilidad = response.data.result[0].listaComprobanteTrazabilidad
-            this.accion = response.data.result[0].id_004_estado
-
-            
+            this.accion = response.data.result[0].id004Estado
           })
           .catch((e) => console.log(e));
 
@@ -315,7 +313,7 @@ export default {
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
           params:{
-            idComprobante : detalle.id_comprobante,
+            idComprobante : detalle.idComprobante,
             estado : 10,
             id008Trazabilidad:28,
             observacion : 'ninguna',
@@ -338,7 +336,7 @@ export default {
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
            params:{
-            idComprobante : detalle.id_comprobante,
+            idComprobante : detalle.idComprobante,
             estado : 11,
             id008Trazabilidad: 29,
             observacion : this.observacion,

@@ -61,43 +61,47 @@
                   <th class="text-center">RUC</th>
                   <th class="text-center">N° de Orden</th>
                   <th class="text-center">Estado</th>
+                  <th class="text-center">Usuario</th>
                   <th class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item of tableData" :key="'facturas ' + item.id_comprobante">
+                <tr v-for="item of tableData" :key="'facturas ' + item.idComprobante">
                   <td>
                     <template>{{ item.numero }}</template>
                   </td>
                   <td>
-                    <template>{{ item.proveedor_nombre_comercial }}</template>
+                    <template>{{ item.proveedorNombreComercial }}</template>
                   </td>
                   <td>
-                    <template>{{ item.fecha_emision }}</template>
+                    <template>{{ item.fechaEmision }}</template>
                   </td>
                   <td>
-                    <template>{{ item.nombre_moneda }}</template>
+                    <template>{{ item.nombreMoneda }}</template>
                   </td>
                   <td>
-                    <template>{{ item.importe_igv }}</template>
+                    <template>{{ item.importeIgv }}</template>
                   </td>
                   <td>
-                    <template>{{ item.importe_total }}</template>
+                    <template>{{ item.importeTotal }}</template>
                   </td>
                   <td>
-                    <template>{{ item.proveedor_numero_documento }}</template>
+                    <template>{{ item.proveedorNumeroDocumento }}</template>
                   </td>
                   <td>
-                    <template>{{ item.orden_numero }}</template>
+                    <template>{{ item.ordenNumero }}</template>
                   </td>
                   <td>
-                    <template>{{ item.nombre_estado }}</template>
+                    <template>{{ item.nombreEstado }}</template>
+                  </td>
+                  <td>
+                    <template>{{ item.usuarioResponsable }}</template>
                   </td>
                   <td>
                    <u @click="verDetalle(item)">ver detalle</u>
                   </td> 
 
-                    <!-- <template v-if="item.id_004_estado==9 ">  
+                    <!-- <template v-if="item.id004Estado==9 ">  
                       <el-button @click="previo(item),dialogEstado = true" type="success" icon="el-icon-check" circle></el-button>
                       <el-button @click="previo(item),dialogEstadoDenegado = true" type="danger" icon="el-icon-close" circle></el-button>
                     </template>
@@ -153,7 +157,7 @@ export default {
   methods: {
     verDetalle(detalle){
     let ruta = "/DetalleFactura";
-    let routeData = this.$router.resolve({path:`${ruta}/${detalle.id_comprobante}`}); 
+    let routeData = this.$router.resolve({path:`${ruta}/${detalle.idComprobante}`}); 
     window.open(routeData.href,'_blank');
 
     },
@@ -166,7 +170,7 @@ export default {
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
           params:{
-            idComprobante : detalle.id_comprobante,
+            idComprobante : detalle.idComprobante,
             estado : 10,
             id008Trazabilidad:28,
             observacion : 'ninguna',
@@ -188,7 +192,7 @@ export default {
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
            params:{
-            idComprobante : detalle.id_comprobante,
+            idComprobante : detalle.idComprobante,
             estado : 11,
             id008Trazabilidad: 29,
             observacion : this.observacion,
