@@ -29,12 +29,12 @@
                   </el-date-picker>
                 </div>
                 <div class="col-md-4">
-                  <el-select v-model="Estado" placeholder="TODOS">
+                  <el-select v-model="tipoComprobanteSeleccionado" placeholder="TODOS">
                     <el-option
-                      v-for="item in options"
-                      :key="item.Estado"
+                      v-for="item in tipoComprobanteResultado"
+                      :key="item.idParametro"
                       :label="item.nombre"
-                      :value="item.valor"
+                      :value="item.idParametro"
                     >
                     </el-option>
                   </el-select>
@@ -59,8 +59,9 @@
                   <th class="text-center">IGV</th>
                   <th class="text-center">Importe</th>
                   <th class="text-center">RUC</th>
-                  <th class="text-center">N° de Orden</th>
+                  <th class="text-center">N° de pedido</th>
                   <th class="text-center">Estado</th>
+                  <th class="text-center">Tipo Comprobante</th>
                   <th class="text-center">Usuario</th>
                   <th class="text-center"></th>
                 </tr>
@@ -74,7 +75,7 @@
                     <template>{{ item.proveedorNombreComercial }}</template>
                   </td>
                   <td>
-                    <template>{{ item.fechaEmision }}</template>
+                    <template>{{formatoFecha(item.fechaEmision)}}</template>
                   </td>
                   <td>
                     <template>{{ item.nombreMoneda }}</template>
@@ -89,10 +90,17 @@
                     <template>{{ item.proveedorNumeroDocumento }}</template>
                   </td>
                   <td>
-                    <template>{{ item.ordenNumero }}</template>
+                    <template >
+                      <a v-if="item.ordenNumero!=null">{{ item.ordenNumero }}</a>
+                      <a v-else>{{ item.ordenContrato }}</a>
+                      </template>
+                    
                   </td>
                   <td>
                     <template>{{ item.nombreEstado }}</template>
+                  </td>
+                  <td>
+                    <template>{{ item.nombreTipoComprobante }}</template>
                   </td>
                   <td>
                     <template>{{ item.usuarioResponsable }}</template>
@@ -142,19 +150,35 @@ export default {
       value1: null,
       value2: null,
       numeroRuc: null,
-      options: [
-        {
-          nombre: "CONSOLIDADO",
-          valor: 'C'
-        },{
-          nombre: "RE-PROCESADA",
-          valor: 'R'
-        }
-      ],
+      tipoComprobanteResultado:null,
+      tipoComprobanteSeleccionado:null,
       tableData: null,
     };
   },
+  created(){
+    this.OntenerCatalogo();
+  },
   methods: {
+OntenerCatalogo() {
+       axios
+          .get(
+            "http://localhost:8090/api/admin/consultar-parametro", {
+              params:{
+                idParametroTipo: 7,
+              }
+            }
+          )
+          .then((response) => {
+            this.tipoComprobanteResultado = response.data.result
+          })
+          .catch((e) => console.log(e));
+    },
+
+
+
+    formatoFecha(fecha){
+      return moment(fecha).format("DD-MM-YYYY");
+    },
     verDetalle(detalle){
     let ruta = "/DetalleFactura";
     let routeData = this.$router.resolve({path:`${ruta}/${detalle.idComprobante}`}); 
@@ -229,12 +253,12 @@ export default {
           .get(
             "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
-                "usuariosresponsable": localStorage.getItem('User'),
-                "numeroFac": this.numeroFac,
-                "fecInicio": fechaInicio,
-               "nroDocumento": this.numeroRuc,
-                "fecFin": fechaFin,
-                // "estado": 9
+                usuariosresponsable: localStorage.getItem('User'),
+                numeroFac: this.numeroFac,
+                fecInicio: fechaInicio,
+               nroDocumento: this.numeroRuc,
+                fecFin: fechaFin,
+                tipoComprobante: this.tipoComprobanteSeleccionado
               }
             }
           )
