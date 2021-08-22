@@ -108,7 +108,7 @@
                 >
                 <el-button
                   type="primary"
-                  @click="(dialogVisible = false), activarCuenta(1)"
+                  @click="(dialogVisible = false), activarCuenta(ESTADO_APROBADO)"
                   >Aprobar</el-button
                 >
               </span>
@@ -132,7 +132,7 @@
                     @click="
                       (innerVisible = false),
                         (dialogVisible = false),
-                        activarCuenta(12, observacion)
+                        activarCuenta(ESTADO_RECHAZADO, observacion)
                     "
                     >Confirmar</el-button
                   >
@@ -149,13 +149,15 @@
 <script>
 import axios from "axios";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
-
+const ESTADO_PENDIENTE =9;
 export default {
   components: {
     TituloHeader,
   },
   data() {
     return {
+      ESTADO_APROBADO: 10, 
+      ESTADO_RECHAZADO: 11,
       innerVisible: false,
       detalleSolicitud: null,
       observacion: null,
@@ -190,7 +192,7 @@ export default {
       axios
         .get("http://localhost:8090/api/admin/listar-proveedores", {
           params: {
-            estado: 8,
+            estado: ESTADO_PENDIENTE,
           },
         })
         .then((response) => {
