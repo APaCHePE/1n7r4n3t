@@ -206,7 +206,16 @@ export default {
           // });
         });
     },
+    modal(icono, titulo, texto){
+      this.$swal({
+          icon: icono,
+          title: titulo,
+          text: texto,
+        });
+      if(this.cargando)this.cargando=false;
+    },
     async activarCuenta(tipoAccion, obseracion) {
+      this.cargando = true;
       var url = "http://localhost:8090/api/admin/activar-proveedor";
       const params = {
           "idProveedor": this.detalleSolicitud.idProveedor,
@@ -220,10 +229,15 @@ export default {
       await axios
         .post(url, params)
         .then((response) => {
+          this.modal("success", "Se ha aprobado correctamente", "");
           console.log("activacion exitosa");
           console.log(response.data);
         })
-        .catch((e) => console.log(e));
+        .catch( ()=> {
+          this.modal("info", "Ha ocurrido un error al procesar", "");
+        });
+
+      this.cargando= false;
       this.listarCuentas();
       this.limpiarCaracteres();
     },
