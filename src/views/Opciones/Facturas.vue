@@ -136,9 +136,44 @@
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisibleDetalle = false">Cerrar</el-button>
+                 <el-button type="primary" @click="dialogEstado = true" plain>Aprobar</el-button>
+                 <el-button type="danger" @click="dialogEstadoDenegado = true"  plain>Rechazar</el-button>     
+                 <el-button @click="dialogVisibleDetalle = false">Cerrar</el-button>
               </span>
             </el-dialog>
+                  <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstado"
+                    width="30%">
+                  <span>Seguro que desea comfirmar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstado = false">No</el-button>
+                    <el-button type="primary" @click="Aprobar()">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Estado"
+                    :visible.sync="dialogEstadoDenegado"
+                    width="30%">
+                  <span>Seguro que desea rechazar el documento?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="danger"  @click="dialogEstadoDenegado = false">No</el-button>
+                    <el-button type="primary" @click="IngresarObservacion = true">Si</el-button>
+                  </span>
+                </el-dialog>
+                <el-dialog
+                    title="Observación"
+                    :visible.sync="IngresarObservacion"
+                    width="20%">
+                    <el-input
+                      type="textarea"
+                      autosize
+                      v-model="observacion">
+                    </el-input>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="Rechazar()">Guardar</el-button>
+                  </span>
+                </el-dialog>
       </div>
     </div>
   </div>
@@ -215,6 +250,7 @@ OntenerCatalogo() {
     },
     Aprobar(detalle){
       this.dialogEstado = false
+      this.dialogVisibleDetalle = false
       console.log(detalle)
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
@@ -238,6 +274,7 @@ OntenerCatalogo() {
     Rechazar(detalle){
       this.dialogEstadoDenegado=false
       this.IngresarObservacion=false
+      this.dialogVisibleDetalle = false
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
            params:{
