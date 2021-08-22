@@ -20,10 +20,161 @@
                 </el-row>
                 <br>
           </div> 
-
+        
+        
+        <div>
+          <template v-if="detalleOrden != null">
+            <div class="py-3">
+                <h4 class="card-title" style="text-align :left; color:#0078cf">Orden</h4>
+                <hr />
+              </div>
+ <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:30px">
+                <tbody>
+                  <tr>
+                    <td class="beta">
+                      <table cellpadding="2" cellspacing="1" width="100%">
+                        <tbody>
+                          <tr>
+                            <td
+                              align="center"
+                              class="bg"
+                              valign="top"
+                              width="100%"
+                            >
+                              <table
+                                class="cabecera-factura"
+                                cellpadding="3"
+                                cellspacing="1"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Número Orden</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                     {{detalleOrden[0].nroOrden}}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Fecha de Emisión </b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                      {{formatoFecha(detalleOrden[0].fecha)}}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Moneda</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                       {{detalleOrden[0].nombreMoneda}}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Forma de Pago </b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                       {{detalleOrden[0].formaPago}}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Importe</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                       {{detalleOrden[0].importe}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </template>
+          <template v-else>
+            <div class="py-3">
+                <h4 class="card-title" style="text-align :left; color:#0078cf">Contrato</h4>
+                <hr />
+              </div>
+              <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:30px">
+                <tbody>
+                  <tr>
+                    <td class="beta">
+                      <table cellpadding="2" cellspacing="1" width="100%">
+                        <tbody>
+                          <tr>
+                            <td
+                              align="center"
+                              class="bg"
+                              valign="top"
+                              width="100%"
+                            >
+                              <table
+                                class="cabecera-factura"
+                                cellpadding="3"
+                                cellspacing="1"
+                                width="100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Número Contrato</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                      {{ detalleContrato[0].idContrato }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Descripción</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                      {{ detalleContrato[0].descripcion }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Fecha de Contrato</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                      {{detalleContrato[0].fechaContrato}}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </template>
+        </div>
 
           <div id="cuerpo" >
-            <form method="post" name="selectForm">
+            
+            <form method="post" name="selectForm"><div class="py-3">
+                <h4 class="card-title" style="text-align :left; color:#0078cf">Factura</h4>
+                <hr />
+              </div>
               <table cellpadding="0" cellspacing="0" width="80%" style="margin-left:30px">
                 <tbody>
                   <tr>
@@ -332,6 +483,10 @@ export default {
   },
   data(){
       return{
+
+        detalleOrden:null,
+        detalleContrato:null,
+
         itemSeleccionado: null,
         dialogEstadoDenegado:false,
         dialogEstado:false,
@@ -362,6 +517,9 @@ export default {
      financial(numro) {
       return Number.parseFloat(numro).toFixed(2);
     },
+    formatoFecha(valor){
+      return moment(valor).format("DD-MM-YYYY");
+    },
       consultar(){
            axios
           .get(
@@ -384,6 +542,35 @@ export default {
             this.OtrosCargosV = this.financial(this.detalle.importeOtrosCargos)
             this.ImporteTotalV = this.financial(this.detalle.importeTotal )   
             this.IgvV = this.financial(this.detalle.importeIgv) 
+            if(this.detalle.ordenNumero != null){
+            axios
+              .get(
+                "http://localhost:8090/api/admin/getOrdenes", {
+                  params:{
+                    nroOrden: this.detalle.ordenNumero 
+                  }
+                }
+              )
+              .then((response) => {
+                this.detalleOrden = response.data.result
+              })
+              .catch((e) => console.log(e));
+            }
+            else{
+              axios
+              .get(
+                "http://localhost:8090/api/admin/getContrato", {
+                  params:{
+                    nroContrato: this.detalle.ordenContrato
+                  }
+                }
+              )
+              .then((response) => {
+                this.detalleContrato = response.data.result
+              })
+              .catch((e) => console.log(e));
+
+            }
             })
           .catch((e) => console.log(e));
 

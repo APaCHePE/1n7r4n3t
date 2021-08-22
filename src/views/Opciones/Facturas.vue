@@ -72,7 +72,9 @@
                     <template>{{ item.numero }}</template>
                   </td>
                   <td>
-                    <template>{{ item.proveedorNombreComercial }}</template>
+                    <template v-if="item.proveedorNombreComercial!= 'null'">
+                      {{ item.proveedorNombreComercial }}</template>
+                    <template v-else>-</template>
                   </td>
                   <td>
                     <template>{{formatoFecha(item.fechaEmision)}}</template>
@@ -87,7 +89,9 @@
                     <template>{{ item.importeTotal }}</template>
                   </td>
                   <td>
-                    <template>{{ item.proveedorNumeroDocumento }}</template>
+                    <template v-if="item.proveedorNumeroDocumento!= 'null'">
+                      {{ item.proveedorNumeroDocumento }}</template>
+                    <template v-else>-</template>
                   </td>
                   <td>
                     <template >
@@ -119,6 +123,22 @@
                 </tr>
               </tbody>
             </table>
+             <el-dialog
+              title="Detalle del Recibo"
+              :visible.sync="dialogVisibleDetalle"
+              width="30%"
+            >
+              <el-form v-if="detalleRecibo!=null">
+                <el-form-item label="N° Contrato : ">
+                  <p>{{detalleRecibo.ordenContrato}}</p></el-form-item>
+                 <el-form-item label="Estado : "> <p style="color: blue">{{detalleRecibo.nombreEstado}}</p></el-form-item>
+                 <el-form-item label="Descripción : "> <p>{{detalleRecibo.listaComprobanteDetalle[0].descripcion}}</p>
+                </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisibleDetalle = false">Cerrar</el-button>
+              </span>
+            </el-dialog>
       </div>
     </div>
   </div>
@@ -135,6 +155,8 @@ export default {
   },
   data() {
     return {
+      detalleRecibo:null,
+      dialogVisibleDetalle:false,
       itemSeleccionado: null,
       dialogEstadoDenegado:false,
       dialogEstado:false,
@@ -145,7 +167,6 @@ export default {
       fechaInicio: null,
       fechaFin: null,
       Estado: null,
-      dialogVisibleDetalle: false,
       dialogVisible: false,
       value1: null,
       value2: null,
@@ -180,11 +201,15 @@ OntenerCatalogo() {
       return moment(fecha).format("DD-MM-YYYY");
     },
     verDetalle(detalle){
+    if(detalle.id007TipoComprobante == 26){
+    this.detalleRecibo = detalle
+    this.dialogVisibleDetalle = true
+    }
+    else{
     let ruta = "/DetalleFactura";
     let routeData = this.$router.resolve({path:`${ruta}/${detalle.idComprobante}`}); 
     window.open(routeData.href,'_blank');
-
-    },
+    }},
     previo(param){
       this.itemSeleccionado = param
     },
