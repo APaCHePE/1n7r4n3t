@@ -314,11 +314,12 @@ OntenerCatalogo() {
         this.fecha == null ? null : moment(this.fecha[1]).format("YYYY-MM-DD");
       console.log(fechaInicio);
       console.log(fechaFin);
+      
        axios
           .get(
             "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
-                usuarioResponsable: localStorage.getItem('User'),
+                usuariosresponsable: localStorage.getItem('User'),
                 numeroFac: this.numeroFac,
                 fecInicio: fechaInicio,
                nroDocumento: this.numeroRuc,
