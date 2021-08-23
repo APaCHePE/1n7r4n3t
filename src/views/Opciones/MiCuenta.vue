@@ -11,8 +11,8 @@
           <div id="cuentasBAncarias" class="textoCuenta2">
             <div class="row mb-1" style="font-size: 16px">
               <div class="col-md-3"><b>Razón Social</b></div>
-              <div class="col-md-3"><b>Ruc</b></div>
-              <div class="col-md-3"><b>Correo Empresa</b></div>
+              <div class="col-md-3"><b>RUC</b></div>
+              <div class="col-md-3"><b>Correo electrónico</b></div>
             </div>
             <div
               class="row mb-2"
@@ -47,20 +47,39 @@
               </div>
             </div>
           </div>
-
           <div v-if="detalleSolicitud">
-            <el-dialog title="Soliciutd de acceso" :visible.sync="dialogVisible" width="45%" >
-              <!-- <span>Nueva cuenta</span> -->
-              <div class="card-solicitud mb-2 border-primary text-left" style="border: 3px solid; ">
+            <el-dialog
+              title="Detalle de solicitud"
+              :visible.sync="dialogVisible"
+              width="45%"
+            >
+              <!-- <div style="text-align: left">
+                <h3><b>Detalle de solicitud</b></h3>
+              </div> -->
+              <div
+                class="card-solicitud mb-2 border-primary text-left"
+                style="border: 3px solid"
+              >
                 <div slot="header" class="cabecera text-info font-weight-bold">
                   <span>Datos Ingresados</span>
                 </div>
-                <div ><b>RUC:</b> {{ detalleSolicitud.persona.nroDocumento }}</div>
-                <div ><b>Razón Social:</b>{{ detalleSolicitud.persona.nombreCompleto }}</div>
-                <div ><b>Correo:</b> {{ detalleSolicitud.usuario }}</div>
-                <div ><b>Teléfono:</b>{{ detalleSolicitud.persona.telefonoPrincipal }}</div>
+                <div>
+                  <b>RUC:</b> {{ detalleSolicitud.persona.nroDocumento }}
+                </div>
+                <div>
+                  <b>Razón Social:</b
+                  >{{ detalleSolicitud.persona.nombreCompleto }}
+                </div>
+                <div><b>Correo:</b> {{ detalleSolicitud.usuario }}</div>
+                <div>
+                  <b>Teléfono:</b
+                  >{{ detalleSolicitud.persona.telefonoPrincipal }}
+                </div>
               </div>
-              <div class="card-solicitud mb-2 border-warning text-left" style="border: 3px solid; ">
+              <div
+                class="card-solicitud mb-2 border-warning text-left"
+                style="border: 3px solid"
+              >
                 <div slot="header" class="cabecera text-info font-weight-bold">
                   <span>Datos SUNAT</span>
                 </div>
@@ -77,11 +96,14 @@
                   <div><b>RUC:</b> {{ validacionRUC }}</div>
                   <div><b>Razón Social:</b> {{ validacionNombre }}</div>
                   <div><b>Estado:</b> {{ validacionEstado }}</div>
-                  <div><b>Direcciòn:</b> {{ validacionDomicilio }}</div>
+                  <div><b>Dirección:</b> {{ validacionDomicilio }}</div>
                 </template>
                 <template v-else>No se encontraron datos</template>
               </div>
-              <div class="card-solicitud mb-2 border-success text-left" style="border: 3px solid; ">
+              <div
+                class="card-solicitud mb-2 border-success text-left"
+                style="border: 3px solid"
+              >
                 <div slot="header" class="cabecera text-info font-weight-bold">
                   <span>Datos ERP</span>
                 </div>
@@ -95,10 +117,17 @@
                   </div>
                 </template>
                 <template v-else-if="datosErp">
-                  <div ><b>RUC:</b> {{ datosErp.nroDocumento }}</div>
-                  <div ><b>Razón Social:</b>{{ datosErp.nombreCompleto }}</div>
-                  <div ><b>Direcciòn:</b> {{ datosErp.direccion }}</div>
-                  <div><b>Teléfono</b> {{ (datosErp.telefonoPrincipal==null)?"-": datosErp.telefonoPrincipal}}</div>
+                  <div><b>RUC:</b> {{ datosErp.nroDocumento }}</div>
+                  <div><b>Razón Social:</b>{{ datosErp.nombreCompleto }}</div>
+                  <div><b>Dirección:</b> {{ datosErp.direccion }}</div>
+                  <div>
+                    <b>Teléfono</b>
+                    {{
+                      datosErp.telefonoPrincipal == null
+                        ? "-"
+                        : datosErp.telefonoPrincipal
+                    }}
+                  </div>
                 </template>
                 <template v-else>No se encontraron datos</template>
               </div>
@@ -108,17 +137,18 @@
                 >
                 <el-button
                   type="primary"
-                  @click="(dialogVisible = false), activarCuenta(ESTADO_APROBADO)"
+                  @click="
+                    (dialogVisible = false), activarCuenta(ESTADO_APROBADO)
+                  "
                   >Aprobar</el-button
                 >
               </span>
               <el-dialog
+                title="Motivo de rechazo:"
                 width="30%"
-                title="Se va desestimar solicitud de cuenta"
                 :visible.sync="innerVisible"
                 append-to-body
               >
-              <div>Motivo:</div>
                 <el-input
                   type="textarea"
                   :rows="2"
@@ -127,13 +157,7 @@
                 >
                 </el-input>
                 <div slot="footer" class="dialog-footer">
-                  <el-button
-                    type="primary"
-                    @click="
-                      (innerVisible = false),
-                        (dialogVisible = false),
-                        activarCuenta(ESTADO_RECHAZADO, observacion)
-                    "
+                  <el-button type="primary" @click="validarCampoVacio()"
                     >Confirmar</el-button
                   >
                 </div>
@@ -149,14 +173,14 @@
 <script>
 import axios from "axios";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
-const ESTADO_PENDIENTE =9;
+const ESTADO_PENDIENTE = 9;
 export default {
   components: {
     TituloHeader,
   },
   data() {
     return {
-      ESTADO_APROBADO: 10, 
+      ESTADO_APROBADO: 10,
       ESTADO_RECHAZADO: 11,
       innerVisible: false,
       detalleSolicitud: null,
@@ -177,7 +201,7 @@ export default {
       entidadDetraccion: "Banco de la Nacion",
       monedaDetraccion: "soles",
 
-      cargando: null
+      cargando: null,
     };
   },
   created() {
@@ -187,6 +211,21 @@ export default {
   methods: {
     limpiarCaracteres() {
       this.observacion = null;
+    },
+    validarCampoVacio() {
+      if (!this.observacion) {
+        // this.modal("info", "Debe ingresar un motivos", "")
+        alert("Debe ingresar un motivo");
+        return;
+      } else if (this.observacion.length < 3) {
+        alert("Debe ingresar un motivo");
+        // this.modal("info", "Debe ingresar un motivos", "")
+        return;
+      } else {
+        this.activarCuenta(this.ESTADO_RECHAZADO, this.observacion);
+        this.innerVisible = false;
+        this.dialogVisible = false;
+      }
     },
     listarCuentas() {
       axios
@@ -208,26 +247,26 @@ export default {
           // });
         });
     },
-    modal(icono, titulo, texto){
+    modal(icono, titulo, texto) {
       this.$swal({
-          icon: icono,
-          title: titulo,
-          text: texto,
-        });
-      if(this.cargando)this.cargando=false;
+        icon: icono,
+        title: titulo,
+        text: texto,
+      });
+      if (this.cargando) this.cargando = false;
     },
     async activarCuenta(tipoAccion, obseracion) {
       this.cargando = true;
       var url = "http://localhost:8090/api/admin/activar-proveedor";
       const params = {
-          "idProveedor": this.detalleSolicitud.idProveedor,
-          "estado": tipoAccion,
-          "persona":{
-            "nombreCompleto": this.detalleSolicitud.persona.nombreCompleto,
-          },
-          "usuario": this.detalleSolicitud.usuario,
-          "observacion": obseracion,
-        }
+        idProveedor: this.detalleSolicitud.idProveedor,
+        estado: tipoAccion,
+        persona: {
+          nombreCompleto: this.detalleSolicitud.persona.nombreCompleto,
+        },
+        usuario: this.detalleSolicitud.usuario,
+        observacion: obseracion,
+      };
       await axios
         .post(url, params)
         .then((response) => {
@@ -235,16 +274,16 @@ export default {
           console.log("activacion exitosa");
           console.log(response.data);
         })
-        .catch( ()=> {
+        .catch(() => {
           this.modal("info", "Ha ocurrido un error al procesar", "");
         });
 
-      this.cargando= false;
+      this.cargando = false;
       this.listarCuentas();
       this.limpiarCaracteres();
     },
-   async mostrarDetalleSolicitud(rucSolicitud) {
-     this.cargando= true
+    async mostrarDetalleSolicitud(rucSolicitud) {
+      this.cargando = true;
       console.log(rucSolicitud);
       this.detalleSolicitud = rucSolicitud;
       this.dialogVisible = true;
@@ -257,14 +296,14 @@ export default {
         correoUsuario: "p.gsti006@miraflores.gob.pe",
       };
 
-    await  axios
+      await axios
         .post(url, params)
         .then((response) => {
           console.log(response.data);
           this.validacionEstado = response.data.principal.sunat.estadoContrib;
           this.validacionNombre = response.data.principal.sunat.nombresContrib;
           this.validacionDomicilio = response.data.domicilio.sunat.domLegal;
-          this.validacionRUC = this.detalleSolicitud.persona.nroDocumento
+          this.validacionRUC = this.detalleSolicitud.persona.nroDocumento;
         })
         .catch((e) => console.log(e));
       var urlErp = "http://localhost:8090/api/admin/listar-proveedor-erp";
@@ -282,7 +321,7 @@ export default {
           }
         })
         .catch((e) => console.log(e));
-        this.cargando= null
+      this.cargando = null;
     },
     añadirCuenta() {
       this.$swal({
@@ -299,20 +338,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el_dialog{
-  .el-dialog__header{
-    .el-dialog__title{
-      font-weight: bold;
-      text-decoration: underline;
-    }
-  }
-}
-.card-solicitud{
-  font-size:16px;
+.card-solicitud {
+  font-size: 16px;
   padding: 10px;
-  .cabecera{
-    margin-bottom:10px;
-    text-decoration: underline ;
+  .cabecera {
+    margin-bottom: 10px;
+    text-decoration: underline;
   }
 }
 

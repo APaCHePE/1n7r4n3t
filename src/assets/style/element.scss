@@ -2,3 +2,16 @@
     margin-top: 20px !important;
     margin-bottom: 10px;
 }
+.el-dialog{
+  margin-top: 10vh!important;
+    .el-dialog__header {
+        text-align: left !important;
+        .el-dialog__title {
+          font-size: 18px;  
+          font-weight: bold !important;
+        }
+    }
+    .el-dialog__body{
+        padding: 10px 20px;
+    }
+}
