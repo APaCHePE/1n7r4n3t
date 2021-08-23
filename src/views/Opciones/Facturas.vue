@@ -214,6 +214,9 @@ export default {
   created(){
     this.OntenerCatalogo();
   },
+  mounted(){
+    this.BuscarFacturas()
+  },
   methods: {
 OntenerCatalogo() {
        axios
@@ -315,7 +318,7 @@ OntenerCatalogo() {
           .get(
             "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
-                usuariosresponsable: localStorage.getItem('User'),
+                usuarioResponsable: localStorage.getItem('User'),
                 numeroFac: this.numeroFac,
                 fecInicio: fechaInicio,
                nroDocumento: this.numeroRuc,

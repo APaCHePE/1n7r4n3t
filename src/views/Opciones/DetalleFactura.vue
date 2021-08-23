@@ -582,7 +582,7 @@ export default {
          axios
         .get("http://localhost:8090/api/admin/estado-factura",{
           params:{
-            usuariosresponsable : 'CFF',
+            usuarioResponsable : 'CFF',
             idComprobante : detalle.idComprobante,
             estado : 10,
             id008Trazabilidad:28,

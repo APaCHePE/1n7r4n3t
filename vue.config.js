@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/ESTEC/'
+    publicPath: '/estec-intranet/'
 };
