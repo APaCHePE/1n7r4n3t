@@ -1,8 +1,7 @@
 <template>
-  <div class="main-content body-full positionRight">
     <div
-      class="content contentTG left-sidebar-toggle contenedor-opciones"
-      style="min-height: 592px; margin-left: 70px"
+      class="component-dinamico"
+      style="min-height: 592px; margin: auto"
     >
       <titulo-header>Solicitudes de acceso</titulo-header><br />
       <div class="container">
@@ -167,7 +166,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -338,6 +336,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .card-solicitud {
   font-size: 16px;
   padding: 10px;

@@ -15,3 +15,9 @@
         padding: 10px 20px;
     }
 }
+.el-menu{
+  background-color: inherit;
+  .el-menu-item{
+    align-items: left;
+  }
+}

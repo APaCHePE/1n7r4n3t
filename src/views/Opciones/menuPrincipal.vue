@@ -1,7 +1,7 @@
 <template>
   <div
-    class="content contentTG left-sidebar-toggle contenedor-opciones"
-    style="min-height: 592px; margin-left: 70px"
+    class=""
+    style="min-height: 595px; margin-left: 70px"
   >
     <div class="contenedor-principal">
       <br /><br /><br />
@@ -85,14 +85,6 @@ export default {
 </script>
 
 <style>
-@import "../../plugins/css/bootstrap/bootstrap.css";
-@import "../../plugins/css/bootstrap/bootstrap-select.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-multiselect.css";
-@import "../../plugins/css/style.css";
-@import "../../plugins/css/main.css";
-@import "../../plugins/css/font-awesome.css";
-@import "../../plugins/css/responsive.css";
 .bienvenido {
   box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;

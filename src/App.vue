@@ -8,6 +8,9 @@
 html, body {
   // background: #EAF0F9;
   background: #FFFFFC;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 #app {
   font-family: 'Montserrat', sans-serif;
