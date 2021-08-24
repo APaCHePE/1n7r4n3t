@@ -1058,14 +1058,24 @@
                     <el-checkbox v-model="detraccion">Detracción :</el-checkbox>
                   </el-col>
                   <el-col :xs="24" :md="8">
-                    <el-select v-model="value" placeholder="Select">
+                    <div v-if="detraccion">
+                    <el-select v-model="value" placeholder="Select" >
                       <el-option
                         v-for="item in options"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value">
                       </el-option>
-                    </el-select>
+                    </el-select></div>
+                    <div v-else>
+                    <el-select v-model="value" placeholder="Select" disabled>
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select></div>
                   </el-col>
                   <el-col :xs="24" :md="4">
                     <el-checkbox v-model="igvAfecto">Afecto IGV</el-checkbox>
@@ -1114,7 +1124,7 @@
                         v-model="item.costo"
                       ></el-input>
                     </td>
-                    <td width="10%"><u style="font-size: 20px">+</u></td>
+                    <td width="10%" v-if="distriGasto == false"><u style="font-size: 20px" @click="agregarItem()">+</u></td>
                   </tr>
                 </tbody>
               </table>
@@ -1158,9 +1168,9 @@ export default {
   data() {
     return {
       conceptoText: null,
-      detraccion: null,
+      detraccion: false,
       igvAfecto: null,
-      distriGasto: null,
+      distriGasto: false,
 
       options: [{
           value: 'Option1',
@@ -1198,11 +1208,15 @@ export default {
     };
   },
   created() {
+    
     this.consultar();
 
     console.log("numero converido " + this.financial(30));
   },
   methods: {
+    agregarItem(){
+      this.numeroItems.push({ numeros: this.numeroItems.length + 1, importe: null, cc: null, costo: null })
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
