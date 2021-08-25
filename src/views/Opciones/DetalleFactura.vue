@@ -12,7 +12,7 @@
       <div class="container" v-if="accion == 9">
         <div class="">
           <br />
-          <div id="cabecera" class="cabecera alinieado-derecha">
+          <div id="cabecera" class="cabecera alinieado-derecha" style="margin-top: -20px">
             <el-row :gutter="10" v-if="accion == 9">
               <el-col :xs="24" :md="12">
                 <el-button
@@ -38,8 +38,8 @@
 
           <div>
             <template v-if="detalleOrden != null">
-              <div class="py-3">
-                <h4 class="card-title" style="text-align: left; color: #0078cf">
+              <div class="py-1">
+                <h4 class="card-title pl-3" style="text-align: left; color: #0078cf">
                   Orden
                 </h4>
                 <hr />
@@ -111,7 +111,7 @@
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ detalleOrden[0].importe }}
+                                      {{ detalleOrden[0].importe | currency("") }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -126,7 +126,7 @@
               </table>
             </template>
             <template v-else>
-              <div class="py-3">
+              <div class="py-1">
                 <h4 class="card-title" style="text-align: left; color: #0078cf">
                   Contrato
                 </h4>
@@ -199,8 +199,8 @@
 
           <div id="cuerpo">
             <form method="post" name="selectForm">
-              <div class="py-3">
-                <h4 class="card-title" style="text-align: left; color: #0078cf">
+              <div class="py-1">
+                <h4 class="card-title pl-3" style="text-align: left; color: #0078cf">
                   Factura
                 </h4>
                 <hr />
@@ -321,18 +321,12 @@
           </div>
 
           <div id="detalle" class="detalle">
-            <div class="py-3">
-              <h4 class="card-title" style="text-align: left; color: #0078cf">
-                Detalle
-              </h4>
-              <hr />
-            </div>
-            <table width="100%" style="margin-top: -40px">
+            <table width="80%" style="margin-top: 40px">
               <tbody>
                 <tr>
                   <td>
                     <div class="detalle-izquierda">
-                      <div class="div-items mx-3">
+                      <div class="div-items">
                         <table
                           id="example2"
                           class="table table-hover table-sm mb-"
@@ -343,7 +337,7 @@
                               <th width="20%">UNIDAD DE MEDIDA</th>
                               <th width="40%">DESCRIPCIÓN</th>
                               <th width="15%">VALOR UNITARIO</th>
-                              <th width="15%">ICBPER</th>
+                              <!-- <th width="15%">ICBPER</th> -->
                             </tr>
                           </thead>
                           <tbody>
@@ -351,29 +345,37 @@
                               v-for="item of detalleFactura"
                               :key="'detalleFac ' + item.idComprobanteDetalle"
                             >
-                              <td width="10%">{{ item.cantidad }}</td>
-                              <td width="20%">{{ item.unidadMedida }}</td>
-                              <td width="40%">{{ item.descripcion }}</td>
-                              <td width="15%s">{{ item.valorUnitario }}</td>
-                              <td width="15%">{{ item.icbper }}</td>
+                              <td width="10%"><div>{{ item.cantidad }}</div></td>
+                              <td width="20%" style="text-align: left"><div>{{ item.unidadMedida }}</div></td>
+                              <td width="40%" style="text-align: left"><div>{{ item.descripcion }}</div></td>
+                              <td width="15%s" style="text-align: right"><div>{{ item.valorUnitario | currency("")}}</div></td>
+                              <!-- <td width="15%">{{ item.icbper }}</td> -->
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
                   </td>
+                </tr>
+              </tbody>
+            </table>
+            <table width="80%"> 
+              <tbody>
+                <tr>
+                  <td style="width: 580px">
+                    <br/>
+                  </td>
                   <td>
                     <div class="total-detalle">
-                      <br /><br /><br />
                       <table width="100%" style="margin: auto">
-                        <tbody>
+                        <tbody style="margin-left: 30px">
                           <tr>
                             <td class="alinieado-izquierda">
                               <div><b>Sub total Ventas </b></div>
                             </td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              <div>{{ subTotalV }}</div>
+                              <div>{{ subTotalV | currency("")}}</div>
                             </td>
                           </tr>
                           <tr>
@@ -382,7 +384,7 @@
                             </td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              <div>{{ AnticipiosV }}</div>
+                              <div>{{ AnticipiosV | currency("")}}</div>
                             </td>
                           </tr>
                           <tr>
@@ -400,14 +402,14 @@
                             </td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              {{ ValordeV }}
+                              {{ ValordeV  | currency("") }}
                             </td>
                           </tr>
                           <tr>
                             <td class="alinieado-izquierda"><b>IGV </b></td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              {{ IgvV }}
+                              {{ IgvV | currency("")  }}
                             </td>
                           </tr>
                           <tr>
@@ -416,7 +418,7 @@
                             </td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              {{ OtrosCargosV }}
+                              {{ OtrosCargosV | currency("")  }}
                             </td>
                           </tr>
                           <tr>
@@ -425,7 +427,7 @@
                             </td>
                             <td><b> : </b></td>
                             <td class="alinieado-derecha">
-                              {{ ImporteTotalV }}
+                              {{ ImporteTotalV  | currency("") }}
                             </td>
                           </tr>
                         </tbody>
@@ -435,14 +437,13 @@
                 </tr>
               </tbody>
             </table>
-
-            <br /><br />
+          </div>
             <div>
               <el-row :gutter="10">
                 <el-col :md="24">
-                  <div class="py-3" style="margin-top: -40px">
+                  <div class="py-1" style="margin-top: -40px">
                     <h4
-                      class="card-title"
+                      class="card-title pl-3"
                       style="text-align: left; color: #0078cf"
                     >
                       Trazabilidad
@@ -450,10 +451,10 @@
                     <hr />
                   </div>
                   <div id="tabTrazabilidad" class="tab-pane active">
-                    <div class="container d-flex justify-content-center">
-                      <table
+                    <div class="container" style="width: 80%; text-align: left; margin-left: 20px">
+                      <table width="80%"
                         id="example2"
-                        class="table table-hover table-sm mb-2"
+                        class="table table-hover " 
                       >
                         <thead>
                           <tr>
@@ -482,7 +483,6 @@
                 </el-col>
               </el-row>
             </div>
-          </div>
           <el-dialog title="Estado" :visible.sync="dialogEstado" width="30%">
             <span>Seguro que desea comfirmar el documento?</span>
             <span slot="footer" class="dialog-footer">
@@ -628,7 +628,7 @@
                                       </td>
                                       <td width="5%" class="bgn">:</td>
                                       <td width="70%" class="bgn">
-                                        {{ detalleOrden[0].importe }}
+                                        {{ detalleOrden[0].importe | currency("")}}
                                       </td>
                                     </tr>
                                   </tbody>
@@ -844,7 +844,7 @@
             </div>
 
             <div id="detalle" class="detalle">
-              <div class="py-3">
+              <div class="py-1">
                 <h4 class="card-title" style="text-align: left; color: #0078cf">
                   Detalle
                 </h4>
@@ -896,7 +896,7 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                <div>{{ subTotalV }}</div>
+                                <div>{{ subTotalV | currency("")}}</div>
                               </td>
                             </tr>
                             <tr>
@@ -905,7 +905,7 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                <div>{{ AnticipiosV }}</div>
+                                <div>{{ AnticipiosV | currency("")}}</div>
                               </td>
                             </tr>
                             <tr>
@@ -914,7 +914,7 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                <div>{{ DescuentosV }}</div>
+                                <div>{{ DescuentosV | currency("")}}</div>
                               </td>
                             </tr>
                             <tr>
@@ -923,14 +923,14 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                {{ ValordeV }}
+                                {{ ValordeV | currency("")}}
                               </td>
                             </tr>
                             <tr>
                               <td class="alinieado-izquierda"><b>IGV </b></td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                {{ IgvV }}
+                                {{ IgvV | currency("")}}
                               </td>
                             </tr>
                             <tr>
@@ -939,7 +939,7 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                {{ OtrosCargosV }}
+                                {{ OtrosCargosV | currency("")}}
                               </td>
                             </tr>
                             <tr>
@@ -948,7 +948,7 @@
                               </td>
                               <td><b> : </b></td>
                               <td class="alinieado-derecha">
-                                {{ ImporteTotalV }}
+                                {{ ImporteTotalV | currency("") }}
                               </td>
                             </tr>
                           </tbody>
@@ -963,7 +963,7 @@
               <div>
                 <el-row :gutter="10">
                   <el-col :md="24">
-                    <div class="py-3" style="margin-top: -40px">
+                    <div class="py-1" style="margin-top: -40px">
                       <h4
                         class="card-title"
                         style="text-align: left; color: #0078cf"
@@ -1083,7 +1083,7 @@
                 </el-row>
               </el-form-item>
             </el-form>
-            <div class="py-3">
+            <div class="py-1">
               <h4 class="card-title" style="text-align: left; color: #0078cf">
                 Distribución de Gasto
                 <el-checkbox v-model="distriGasto" class="derecha"
@@ -1161,10 +1161,12 @@
 import moment from "moment";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
+import Vue2Filters from 'vue2-filters'
 export default {
   components: {
     TituloHeader,
   },
+  mixins: [Vue2Filters.mixin],
   data() {
     return {
       conceptoText: null,
@@ -1214,6 +1216,9 @@ export default {
     console.log("numero converido " + this.financial(30));
   },
   methods: {
+    milesNumeros(numero) {
+    return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+},
     agregarItem(){
       this.numeroItems.push({ numeros: this.numeroItems.length + 1, importe: null, cc: null, costo: null })
     },
@@ -1349,8 +1354,10 @@ export default {
   margin-right: 5%;
 }
 hr {
-  width: 60vw !important;
+  width: 64vw !important;
   position: relative;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .alinieado-derecha {
   text-align: right;
