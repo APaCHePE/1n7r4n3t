@@ -328,7 +328,7 @@ export default {
 
           }
 
-          alert(this.validacionEstado);
+          
         })
         .catch((e) => console.log(e));
     },
