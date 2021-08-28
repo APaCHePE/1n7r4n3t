@@ -9,7 +9,7 @@
         <div class="col-md-6">
           <h2 class="t1">Bievenido(a)</h2>
           <span class="t2" id="NombreCompleto"></span
-          ><span class="t3">Plataforma de<b> proveedores</b></span>
+          ><span class="t3">Plataforma digital<b> ESTEC </b></span>
         </div>
         <div class="col-md-2">
           <img
@@ -60,7 +60,7 @@ export default {
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Solicitudes",
+              name: "Proveedores",
               url: "/menu/miCuenta",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },

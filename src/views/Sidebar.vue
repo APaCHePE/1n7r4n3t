@@ -36,7 +36,7 @@
           </template>
           <el-menu-item-group @click="enviarSelect(ruta)">
            <router-link :to="'/solicitudes'"> <el-menu-item index="1-1">
-              <span>Solicitudes</span>
+              <span>Proveedores</span>
             </el-menu-item></router-link>
            <!-- <router-link :to="'/miscontactos'"> <el-menu-item index="1-2">
               <span>Contactos</span>

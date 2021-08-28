@@ -177,8 +177,8 @@
     </div>
   </div>
 </template>
-
 <script>
+// import Vue2Filters from 'vue2-filters'
  import moment from "moment";
  import axios from "axios";
  import TituloHeader from "@/components/Utils/TituloHeader.vue";
@@ -238,15 +238,16 @@ OntenerCatalogo() {
       return moment(fecha).format("DD-MM-YYYY");
     },
     verDetalle(detalle){
-    if(detalle.id007TipoComprobante == 26){
-    this.detalleRecibo = detalle
-    this.dialogVisibleDetalle = true
-    }
-    else{
+    // if(detalle.id007TipoComprobante == 26){
+    // this.detalleRecibo = detalle
+    // this.dialogVisibleDetalle = true
+    // }
+    // else{
     let ruta = "/DetalleFactura";
     let routeData = this.$router.resolve({path:`${ruta}/${detalle.idComprobante}`}); 
     window.open(routeData.href,'_blank');
-    }},
+    // }
+    },
     previo(param){
       this.itemSeleccionado = param
     },

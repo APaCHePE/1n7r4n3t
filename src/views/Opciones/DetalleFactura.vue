@@ -6,48 +6,28 @@
       style="min-height: 10px; margin-left: 70px"
     >
       <titulo-header
-        >Detalle Factura {{ detalle.serie }} -
+        >Detalle {{tituloComprobante}} {{ detalle.serie }} -
         {{ detalle.numero }}</titulo-header
       ><br />
       <div class="container" v-if="accion == 9">
         <div class="">
           <br />
-          <div id="cabecera" class="cabecera alinieado-derecha" style="margin-top: -20px">
-            <el-row :gutter="10" v-if="accion == 9">
-              <el-col :xs="24" :md="12">
-                <el-button
-                  type="primary"
-                  @click="dialogEstado = true"
-                  style="width: 200px; height: 50px; font-size: 17px"
-                  plain
-                  >Aprobar</el-button
-                >
-              </el-col>
-              <el-col :xs="24" :md="12">
-                <el-button
-                  type="danger"
-                  @click="dialogEstadoDenegado = true"
-                  style="width: 200px; height: 50px; font-size: 17px"
-                  plain
-                  >Rechazar</el-button
-                >
-              </el-col>
-            </el-row>
-            <br />
-          </div>
+          
 
           <div>
             <template v-if="detalleOrden != null">
-              <div class="py-1">
-                <h4 class="card-title pl-3" style="text-align: left; color: #0078cf">
-                  Orden
-                </h4>
-                <hr />
+              <div class="py-1 ">
+                <div>
+                  <h4 class="card-title pl-3  mb-0" style="text-align: left; color: #0078cf">
+                    Orden
+                  </h4>
+                </div>
               </div>
+                <hr />
               <table
                 cellpadding="0"
                 cellspacing="0"
-                width="80%"
+                width="60%"
                 style="margin-left: 30px"
               >
                 <tbody>
@@ -70,11 +50,11 @@
                               >
                                 <tbody>
                                   <tr>
-                                    <td width="30%" class="bgn">
+                                    <td width="20%" class="bgn">
                                       <b>Número Orden</b>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
-                                    <td width="70%" class="bgn">
+                                    <td width="75%" class="bgn">
                                       {{ detalleOrden[0].nroOrden }}
                                     </td>
                                   </tr>
@@ -199,16 +179,16 @@
 
           <div id="cuerpo">
             <form method="post" name="selectForm">
-              <div class="py-1">
-                <h4 class="card-title pl-3" style="text-align: left; color: #0078cf">
-                  Factura
+              <div class="py-1 ">
+                <h4 class="card-title pl-3 mb-0" style="text-align: left; color: #0078cf">
+                  Detalle
                 </h4>
                 <hr />
               </div>
               <table
                 cellpadding="0"
                 cellspacing="0"
-                width="80%"
+                width="60%"
                 style="margin-left: 30px"
               >
                 <tbody>
@@ -247,28 +227,6 @@
                                     <td width="70%" class="bgn">
                                       {{ detalle.proveedorNumeroDocumento }}
                                     </td>
-                                  </tr>
-                                  <tr>
-                                    <template
-                                      v-if="detalle.ordenNumero != null"
-                                    >
-                                      <td width="30%" class="bgn">
-                                        <b> N° Orden</b>
-                                      </td>
-                                      <td width="5%" class="bgn">:</td>
-                                      <td width="70%" class="bgn">
-                                        {{ detalle.ordenNumero }}
-                                      </td>
-                                    </template>
-                                    <template v-else>
-                                      <td width="30%" class="bgn">
-                                        <b> N° Contrato</b>
-                                      </td>
-                                      <td width="5%" class="bgn">:</td>
-                                      <td width="70%" class="bgn">
-                                        {{ detalle.ordenContrato }}
-                                      </td>
-                                    </template>
                                   </tr>
                                   <tr>
                                     <td width="30%" class="bgn">
@@ -336,7 +294,7 @@
                               <th width="10%">CANTIDAD</th>
                               <th width="20%">UNIDAD DE MEDIDA</th>
                               <th width="40%">DESCRIPCIÓN</th>
-                              <th width="15%">VALOR UNITARIO</th>
+                              <th width="15%" style="text-align: right">VALOR UNITARIO</th>
                               <!-- <th width="15%">ICBPER</th> -->
                             </tr>
                           </thead>
@@ -441,15 +399,37 @@
             <div>
               <el-row :gutter="10">
                 <el-col :md="24">
-                  <div class="py-1" style="margin-top: -40px">
+                  <div class="py-1 d-flex justify-content-between" style="margin-top: 0px; display: flex; width: 80%">
                     <h4
-                      class="card-title pl-3"
+                      class="card-title pl-3  mb-0"
                       style="text-align: left; color: #0078cf"
                     >
                       Trazabilidad
                     </h4>
-                    <hr />
+                    <div >
+                      <el-row  v-if="accion == 9" style="margin-top: 0px !important; margin-bottom: 0px !important">
+                        <el-col :xs="24" :md="12">
+                          <el-button
+                            type="primary"
+                            @click="dialogEstado = true"
+                            style="width: 200px; height: 50px; font-size: 17px; margin-right: 5px"
+                            plain
+                            >Aprobar</el-button
+                          >
+                        </el-col>
+                        <el-col :xs="24" :md="12">
+                          <el-button
+                            type="danger"
+                            @click="dialogEstadoDenegado = true"
+                            style="width: 200px; height: 50px; font-size: 17px"
+                            plain
+                            >Rechazar</el-button
+                          >
+                        </el-col>
+                      </el-row>
+                    </div>
                   </div>
+                  <hr style="margin-top: 0px !important; margin-bottom: 10px !important" />
                   <div id="tabTrazabilidad" class="tab-pane active">
                     <div class="container" style="width: 80%; text-align: left; margin-left: 20px">
                       <table width="80%"
@@ -458,10 +438,10 @@
                       >
                         <thead>
                           <tr>
-                            <th width="10%">FECHA REGISTRO</th>
-                            <th width="20%">ESTADO</th>
-                            <th width="40%">OBSERVACIÓN</th>
+                            <th width="10%">FECHA</th>
                             <th width="20%">USUARIO</th>
+                            <th width="20%">ACCIÓN</th>
+                            <th width="40%">OBSERVACIÓN</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -472,9 +452,9 @@
                             "
                           >
                             <td width="10%">{{ item.fechaRegistro }}</td>
+                            <td width="15%">{{ item.usuarioRegistro }}</td>
                             <td width="20%">{{ item.nombreEstado }}</td>
                             <td width="40%">{{ item.observacion }}</td>
-                            <td width="15%">{{ item.usuarioRegistro }}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -1169,6 +1149,7 @@ export default {
   mixins: [Vue2Filters.mixin],
   data() {
     return {
+      tituloComprobante: "",
       conceptoText: null,
       detraccion: false,
       igvAfecto: null,
@@ -1241,6 +1222,7 @@ export default {
         })
         .then((response) => {
           this.detalle = response.data.result[0];
+          this.tituloComprobante = (this.detalle.id007TipoComprobante == 26)?"Recibo":"Factura";
           this.conceptoText =
             this.detalle.proveedorNombreComercial + ", " + this.detalle.numero;
           this.detalleFactura = response.data.result[0].listaComprobanteDetalle;
@@ -1342,6 +1324,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .input {
   //height: 10px !important;
 }
@@ -1354,10 +1337,11 @@ export default {
   margin-right: 5%;
 }
 hr {
-  width: 64vw !important;
+  width: 50vw !important;
   position: relative;
   margin-top: 5px;
   margin-bottom: 5px;
+  float: left;
 }
 .alinieado-derecha {
   text-align: right;

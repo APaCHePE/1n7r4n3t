@@ -4,7 +4,7 @@
       class="content contentTG left-sidebar-toggle contenedor-opciones"
       style="min-height: 592px; margin-left: 70px"
     >
-      <titulo-header>Solicitudes de acceso</titulo-header><br />
+      <titulo-header>Lista de proveedores</titulo-header><br />
       <div class="container">
         <div id="miCuenta"></div>
         <div>
