@@ -50,11 +50,11 @@
         <el-submenu index="3" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Facturas</span>
+            <span style="font-size: 20px">Comprobantes</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/facturas'"><el-menu-item index="1-2">
-             <span>Consultar</span>
+             <span>Pendientes</span>
             </el-menu-item></router-link> 
             <router-link :to="'/facturasFisicas'"><el-menu-item index="1-1">
               <span>Facturas Físicas</span>

@@ -13,7 +13,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 
 // Si no necesita los estilos, no conecte 
 import  'sweetalert2/dist/sweetalert2.min.css' ;
+import Vue2Filters from 'vue2-filters'
 
+Vue.use(Vue2Filters)
 Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;

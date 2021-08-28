@@ -4,7 +4,7 @@
       class="content contentTG left-sidebar-toggle contenedor-opciones"
       style="min-height: 592px; margin-left: 70px"
     >
-      <titulo-header>Consulta Facturas</titulo-header><br />
+      <titulo-header>Comprobantes Pendientes</titulo-header><br />
       <div class="container">
             <div>
               <div class="row">
@@ -52,24 +52,35 @@
             <table id="example2" class="table table-hover table-sm mb-2">
               <thead>
                 <tr>
-                  <th class="text-center">N° Factura</th>
-                  <th class="text-center">Proveedor</th>
+                  <th class="text-center">Tipo</th>
+                  <th class="text-center">Número</th>
                   <th class="text-center">Fecha</th>
+                  <th class="text-center">RUC</th>
+                  <th class="text-center">Proveedor</th>
+                  <th class="text-center">N° de pedido</th>
                   <th class="text-center">Moneda</th>
                   <th class="text-center">IGV</th>
                   <th class="text-center">Importe</th>
-                  <th class="text-center">RUC</th>
-                  <th class="text-center">N° de pedido</th>
                   <th class="text-center">Estado</th>
-                  <th class="text-center">Tipo Comprobante</th>
-                  <th class="text-center">Usuario</th>
+                  <!-- <th class="text-center">Usuario</th> -->
                   <th class="text-center"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item of tableData" :key="'facturas ' + item.idComprobante">
                   <td>
-                    <template>{{ item.numero }}</template>
+                    <template>{{ item.nombreTipoComprobante }}</template>
+                  </td>
+                  <td>
+                    <template>{{ item.serie+"-"+item.numero }}</template>
+                  </td>
+                  <td>
+                    <template>{{formatoFecha(item.fechaEmision)}}</template>
+                  </td>
+                  <td>
+                    <template v-if="item.proveedorNumeroDocumento!= 'null'">
+                      {{ item.proveedorNumeroDocumento }}</template>
+                    <template v-else>-</template>
                   </td>
                   <td>
                     <template v-if="item.proveedorNombreComercial!= 'null'">
@@ -77,7 +88,10 @@
                     <template v-else>-</template>
                   </td>
                   <td>
-                    <template>{{formatoFecha(item.fechaEmision)}}</template>
+                    <template >
+                      <a v-if="item.ordenNumero!=null">{{ item.ordenNumero }}</a>
+                      <a v-else>{{ item.ordenContrato }}</a>
+                      </template>
                   </td>
                   <td>
                     <template>{{ item.nombreMoneda }}</template>
@@ -89,26 +103,11 @@
                     <template>{{ item.importeTotal }}</template>
                   </td>
                   <td>
-                    <template v-if="item.proveedorNumeroDocumento!= 'null'">
-                      {{ item.proveedorNumeroDocumento }}</template>
-                    <template v-else>-</template>
-                  </td>
-                  <td>
-                    <template >
-                      <a v-if="item.ordenNumero!=null">{{ item.ordenNumero }}</a>
-                      <a v-else>{{ item.ordenContrato }}</a>
-                      </template>
-                    
-                  </td>
-                  <td>
                     <template>{{ item.nombreEstado }}</template>
                   </td>
-                  <td>
-                    <template>{{ item.nombreTipoComprobante }}</template>
-                  </td>
-                  <td>
+                  <!-- <td>
                     <template>{{ item.usuarioResponsable }}</template>
-                  </td>
+                  </td> -->
                   <td>
                    <u @click="verDetalle(item)">ver detalle</u>
                   </td> 
@@ -148,7 +147,7 @@
                   <span>Seguro que desea comfirmar el documento?</span>
                   <span slot="footer" class="dialog-footer">
                     <el-button type="danger"  @click="dialogEstado = false">No</el-button>
-                    <el-button type="primary" @click="Aprobar()">Si</el-button>
+                    <el-button type="primary" @click="Aprobar(detalleRecibo)">Si</el-button>
                   </span>
                 </el-dialog>
                 <el-dialog
@@ -171,7 +170,7 @@
                       v-model="observacion">
                     </el-input>
                   <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="Rechazar()">Guardar</el-button>
+                    <el-button type="primary" @click="Rechazar(detalleRecibo)">Guardar</el-button>
                   </span>
                 </el-dialog>
       </div>
@@ -263,6 +262,7 @@ OntenerCatalogo() {
             id008Trazabilidad:28,
             observacion : 'ninguna',
             usuarioModificador : localStorage.getItem('User'),
+            usuarioResponsable: "AAA"
           }
         })
         .then((response) => {
@@ -286,6 +286,7 @@ OntenerCatalogo() {
             id008Trazabilidad: 29,
             observacion : this.observacion,
             usuarioModificador : localStorage.getItem('User'),
+            usuarioResponsable: "AAA"
           }
         })
         .then((response) => {

@@ -191,9 +191,6 @@
                                                     No se ha cumplido con la estandarización de planes para</dt>
                                             </dl>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                             </div>
