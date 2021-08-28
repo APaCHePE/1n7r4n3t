@@ -1029,7 +1029,9 @@
             <el-form ref="form" :model="form" label-width="120px">
               <br />
               <el-form-item label="Concepto : ">
-                <el-input v-model="conceptoText" disabled></el-input>
+                <el-input v-model="conceptoText" 
+                maxlength="250"
+                disabled></el-input>
               </el-form-item>
 
               <el-form-item class="segItem">
@@ -1064,7 +1066,7 @@
               </el-form-item>
             </el-form>
             <div class="py-1">
-              <h4 class="card-title" style="text-align: left; color: #0078cf">
+              <h4 class="card-title tituloTab">
                 Distribución de Gasto
                 <el-checkbox v-model="distriGasto" class="derecha"
                   >Única</el-checkbox
@@ -1073,7 +1075,8 @@
               <hr />
             </div>
             <div>
-              <table id="example2" class="table">
+              <table id="example2" class="table" width="95%"
+              height="95%">
                 <tbody>
                   <tr
                     v-for="item of numeroItems"
@@ -1193,13 +1196,16 @@ export default {
   created() {
     
     this.consultar();
-
+    
     console.log("numero converido " + this.financial(30));
+    console.log("numero converido plata " + this.milesNumeros(30038488484.56));
   },
   methods: {
     milesNumeros(numero) {
     return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 },
+},
+
     agregarItem(){
       this.numeroItems.push({ numeros: this.numeroItems.length + 1, importe: null, cc: null, costo: null })
     },
@@ -1319,7 +1325,6 @@ export default {
           console.log(e);
         });
     },
-  },
 };
 </script>
 
@@ -1328,9 +1333,14 @@ export default {
 .input {
   //height: 10px !important;
 }
+.tituloTab{
+text-align: left; 
+color: #0078cf;
+margin-left: 30px;
+}
 .segItem {
   text-align: left;
-  margin-left: -90px;
+  margin-left: -114px;
 }
 .derecha {
   float: right;
