@@ -8,22 +8,19 @@
       <titulo-header
         >Detalle {{tituloComprobante}} {{ detalle.serie }} -
         {{ detalle.numero }}</titulo-header
-      ><br />
+      >
       <div class="container" v-if="accion == 9">
         <div class="">
-          <br />
-          
-
           <div>
             <template v-if="detalleOrden != null">
-              <div class="py-1 ">
+              <div class="pb-1 ">
                 <div>
                   <h4 class="card-title pl-3  mb-0" style="text-align: left; color: #0078cf">
                     Orden
                   </h4>
                 </div>
               </div>
-                <hr />
+              <hr />
               <table
                 cellpadding="0"
                 cellspacing="0"
@@ -107,7 +104,7 @@
             </template>
             <template v-else>
               <div class="py-1">
-                <h4 class="card-title" style="text-align: left; color: #0078cf">
+                <h4 class="card-title  pl-3  mb-0" style="text-align: left; color: #0078cf">
                   Contrato
                 </h4>
                 <hr />
@@ -115,7 +112,7 @@
               <table
                 cellpadding="0"
                 cellspacing="0"
-                width="80%"
+                width="60%"
                 style="margin-left: 30px"
               >
                 <tbody>
@@ -161,7 +158,7 @@
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ detalleContrato[0].fechaContrato }}
+                                      {{ formatoFecha(detalleContrato[0].fecha) }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -451,7 +448,7 @@
                               'detalletraza ' + item.idComprobanteTrazabilidad
                             "
                           >
-                            <td width="10%">{{ item.fechaRegistro }}</td>
+                            <td width="10%">{{ formatoFecha(item.fechaRegistro) }}</td>
                             <td width="15%">{{ item.usuarioRegistro }}</td>
                             <td width="20%">{{ item.nombreEstado }}</td>
                             <td width="40%">{{ item.observacion }}</td>
@@ -1203,9 +1200,7 @@ export default {
   methods: {
     milesNumeros(numero) {
     return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-},
-},
-
+    },
     agregarItem(){
       this.numeroItems.push({ numeros: this.numeroItems.length + 1, importe: null, cc: null, costo: null })
     },
@@ -1325,6 +1320,7 @@ export default {
           console.log(e);
         });
     },
+  }
 };
 </script>
 

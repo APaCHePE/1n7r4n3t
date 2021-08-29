@@ -15,3 +15,8 @@
         padding: 10px 20px;
     }
 }
+.el-upload {
+  .el-upload__input {
+    display: none !important;
+  }
+}

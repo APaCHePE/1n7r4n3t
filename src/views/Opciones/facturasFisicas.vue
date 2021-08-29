@@ -4,48 +4,60 @@
       class="content contentTG left-sidebar-toggle contenedor-opciones"
       style="min-height: 592px; margin-left: 70px"
     >
-      <titulo-header>Registro de Facturas Físicas</titulo-header><br />
+      <titulo-header>Registro de Comprobante</titulo-header><br />
       <div class="body-registro" v-loading="loading">
         <br />
-        <br />
         <div >
-          <el-row style="margin-top: 20px">
-            <el-col :md="4">
-              <p class="izquierda">Ruc:</p>
-            </el-col>
-            <el-col :md="4">
+          <el-row style="margin-top: 10px">
+            <el-col :md="3">
+              <p class="izquierda izquierda-cy ">Ruc:</p>
+            </el-col> 
+            <el-col :md="5">
               <el-input
                 style="width: 100%"
-                class="izquierda"
+                class=""
                 v-model="ruc"
               ></el-input>
             </el-col>
-            <el-col :md="5">
-              <el-button class="centro" @click="buscarRuc()">validar</el-button>
+            <el-col :md="2">
+              <el-button class="centro" type="success" @click="buscarRuc()">Buscar</el-button>
             </el-col>
           </el-row>
           <el-row style="margin-top: 20px">
-            <el-col :md="4">
-              <p class="izquierda">Razon Social:</p>
+            <el-col :md="3">
+              <p class="izquierda izquierda-cy ">Razón Social:</p>
             </el-col>
-            <el-col :md="8">
+            <el-col :md="11">
               <el-input
-                style="width: 80%"
+                style="width:100%"
                 type="textarea"
-                class="izquierda"
+                class=""
                 v-model="validacionNombre"
                 disabled
                 autosize
               ></el-input>
             </el-col>
-            <el-col :md="4">
-              <p class="izquierda">Dirección:</p>
+            <el-col :md="2">
+              <p class="derecha izquierda-cy">Estado:</p>
             </el-col>
-            <el-col :md="8">
+            <el-col :md="4">
               <el-input
-                type="textarea"
-                style="width: 80%"
-                class="izquierda"
+                style="width: 100%"
+                class=""
+                v-model="validacionEstado"
+                disabled
+                autosize
+              ></el-input>
+            </el-col>
+          </el-row>
+          <el-row style="margin-top: 20px">
+            <el-col :md="3">
+              <p class="izquierda izquierda-cy">Dirección:</p>
+            </el-col>
+            <el-col :md="17">
+              <el-input
+                style="width: 100%"
+                class=""
                 v-model="validacionDomicilio"
                 disabled
                 autosize
@@ -53,11 +65,11 @@
             </el-col>
           </el-row>
           <el-row style="margin-top: 20px">
-            <el-col :md="4">
-              <p class="izquierda">Tipo de Comprobante:</p>
+            <el-col :md="3">
+              <p class="izquierda izquierda-cy">Tipo:</p>
             </el-col>
-            <el-col :md="8">
-              <el-select v-model="value" placeholder="Select" class="izquierda">
+            <el-col :md="5">
+              <el-select v-model="value" placeholder="Comprobante" class="" style="width: 100%">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -67,93 +79,131 @@
                 </el-option>
               </el-select>
             </el-col>
-            <el-col :md="4">
-              <p class="izquierda">Número:</p>
+            <el-col :md="3">
+              <p class="derecha izquierda-cy">Moneda:</p>
             </el-col>
             <el-col :md="3">
-              <el-input class="izquierda" style="width: 80%" v-model="serie"></el-input>
+              <el-select v-model="value" placeholder="Moneda" class="" style="width: 100%">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-col>
+            <el-col :md="2">
+              <p class="derecha izquierda-cy">Número:</p>
             </el-col>
             <el-col :md="1">
-              <p class="derecha"><b>-</b></p>
+              <el-input class="" style="width: 100%; padding: 0px !important" v-model="serie"></el-input>
             </el-col>
-            <el-col :md="3">
-              <el-input class="izquierda" style="width: 80%" v-model="numero"></el-input>
+            <el-col :md="1">
+              <p class="izquierda-cy"><b>-</b></p>
+            </el-col>
+            <el-col :md="2">
+              <el-input class="" style="width: 100%" v-model="numero"></el-input>
             </el-col>
           </el-row>
           <el-row style="margin-top: 20px">
-            <el-col :md="4">
-              <p class="izquierda">Fecha de emisión:</p>
+            <el-col class="mx-0 px-0" :md="3">
+              <p class="izquierda izquierda-cy">F. Emisión:</p>
             </el-col>
-            <el-col :md="8">
+            <el-col :md="5">
               <el-date-picker
-                class="izquierda"
-                style="width: 80%"
+                class=""
+                style="width: 100%"
                 v-model="value1"
                 type="date"
                 placeholder="Pick a day"
               >
               </el-date-picker>
             </el-col>
-            <el-col :md="4" class="centro">
-              <p class="izquierda">Fecha de vencimiento:</p>
+            <el-col :md="3" class="centro " style="display: block">
+              <p class="derecha izquierda-cy" style="  white-space: nowrap;">F. Vencimiento:</p>
             </el-col>
-            <el-col :md="8">
+            <el-col :md="3">
               <el-date-picker
-                class="izquierda"
-                style="width: 80%"
+                class=""
+                style="width: 100%"
                 v-model="value2"
                 type="date"
                 placeholder="Pick a day"
               >
               </el-date-picker>
             </el-col>
+            <el-col :md="2"><p class="derecha">{{" "}}</p></el-col>
+            <el-col :md="4">
+              <el-checkbox v-model="igvAfecto" style="width: 100%" border label="Afecto IGV" 
+                ></el-checkbox
+              >
+            </el-col>
           </el-row>
 
           <el-row style="margin-top: 20px">
-            <el-col :md="4">
-              <p class="izquierda">Descripción:</p>
-            </el-col>
-            <el-col :md="12">
-              <el-input
-                v-model="descripcionGeneral"
-                class="izquierda"
-                type="textArea"
-                style="width: 80%"
-              autosize></el-input>
-            </el-col>
-          </el-row>
-          <el-row style="margin-top: 20px">
-            <el-col :md="5">
-              <el-checkbox v-model="igvAfecto" class="izquierda"
-                >Afecto IGV</el-checkbox
-              >
-            </el-col>
             <el-col :md="3">
-              <p style="float: center">Importe:</p>
+              <p class="izquierda izquierda-cy" style="float: center">Importe:</p>
             </el-col>
-            <el-col :md="4">
+            <el-col :md="5">
               <el-input style="width: 100%; float: left" v-model="importe"></el-input>
             </el-col>
-            <el-col :md="2">
-              <p style="float: center">IGV:</p>
-            </el-col>
-            <el-col :md="2">
-              <el-input style="width: 100%; float: left" :disabled="igvAfecto==false" v-model="igv"></el-input>
+            <el-col :md="3">
+              <p class="derecha izquierda-cy" style="float: center">IGV:</p>
             </el-col>
             <el-col :md="3">
-              <p style="float: center">Subtotal:</p>
+              <el-input style="width: 100%; float: left" :disabled="igvAfecto==false" v-model="igv"></el-input>
+            </el-col>
+            <el-col :md="2">
+              <p class="derecha izquierda-cy" style="float: center">Subtotal:</p>
             </el-col>
             <el-col :md="4">
               <el-input style="width: 100%; float: left" :disabled="igvAfecto==false" v-model="subtotal"></el-input>
             </el-col> </el-row
-          ><br />
-          <el-button type="primary" class="derecha" style=" margin-right: 45px !important"
-            >Adjuntar Escaneado<i class="el-icon-upload2"></i></el-button
-          ><br />
+          >
+          <el-row style="margin-top: 20px">
+            <el-col :md="3">
+              <p class="izquierda izquierda-cy">Descripción:</p>
+            </el-col>
+            <el-col :md="17">
+              <el-input
+                v-model="descripcionGeneral"
+                class=""
+                type="textArea"
+                style="width: 100%"
+              autosize></el-input>
+            </el-col>
+          </el-row>
+          <el-row style="display: flex;">
+            <div class="izquierda">
+                <!-- <h3 class="mb-2 derecha ml-0">Comprobante</h3> -->
+                <el-upload
+                  ref="uploadZip"
+                  :auto-upload="false"
+                  accept=".zip, .xml"
+                  :limit="1"
+                  class=""
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                >
+                  <el-button slot="trigger" size="small" type="primary"
+                    >Adjuntar comprobante</el-button
+                  >
+                  <!-- <el-button @click="verFile()" size="small" type="warning"
+                    >Ver</el-button
+                  > -->
+                </el-upload>
+              </div>
+          </el-row>
+          <hr/>
+        <div style=" width: 82%">
+              <el-button type="primary" style="float: right;"
+              >Guardar <i class="el-icon-upload2"></i></el-button>
+        </div>
+        <br />
         </div>
         <br />
         <br />
-        <div id="detalle" class="detalle">
+        <div v-if="'1'=='2'" id="detalle" class="detalle">
           <div>
             <table id="example2" class="table table-hover table-sm mb-2">
               <thead>
@@ -230,9 +280,7 @@
       </div>
 
       <div style="margin-right: 7%">
-        <br /><el-button type="primary"
-          >Guardar Comprobante <i class="el-icon-upload2"></i></el-button
-        ><br /><br />
+        <br /><br /><br />
       </div>
     </div>
   </div>
@@ -336,17 +384,26 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" >
 .centro {
   float: center;
 }
 .derecha {
-  float: right;
-  margin-right: 45px;
+  float: left;
+  display: block;
+  margin-left: 15px;
+  &-cy{
+    margin-top: 14px;
+    margin-bottom: 0px;
+  }
 }
 .izquierda {
   float: left;
   margin-left: 40px;
+  &-cy{
+    margin-top: 14px;
+    margin-bottom: 0px;
+  }
 }
 .body-registro {
   width: 90%;
