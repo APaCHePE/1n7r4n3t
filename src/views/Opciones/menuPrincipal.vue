@@ -89,8 +89,6 @@ export default {
 </script>
 
 <style>
-@import "../../plugins/css/style.css";
-@import "../../plugins/css/main.css";
 .bienvenido {
   box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;

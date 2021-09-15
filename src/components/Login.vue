@@ -106,7 +106,6 @@ export default {
 @import "../assets/css/core/menu/menu-types/vertical-menu.css";
 @import "../assets/css/plugins/forms/form-validation.css";
 @import "../assets/css/pages/page-auth.css";
-@import "../assets/style.css";
 .position-left {
   float: left;
 }

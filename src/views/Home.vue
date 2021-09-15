@@ -94,7 +94,6 @@ export default {
 @import "../assets/css/themes/semi-dark-layout.css";
 @import "../assets/css/core/menu/menu-types/vertical-menu.css";
 @import "../assets/css/plugins/forms/form-validation.css";
-@import "../assets/style.css";
 .position-left {
   float: left;
 }

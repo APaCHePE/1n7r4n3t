@@ -49,8 +49,6 @@ export default {
 </script>
 
 <style>
-@import "../plugins/css/style.css";
-@import "../plugins/css/main.css";
 
 .contenedor-opciones {
   position: absolute;
