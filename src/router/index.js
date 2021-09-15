@@ -7,6 +7,8 @@ import MiCuenta from "../views/Opciones/MiCuenta.vue";
 import DetalleFactura from "../views/Opciones/DetalleFactura.vue";
 import facturasFisicas from "../views/Opciones/facturasFisicas.vue";
 import Facturas from "../views/Opciones/Facturas.vue";
+import ArchivoBanco from "../components/ArchivoBanco/Bandeja.vue";
+import ComprobanteProgramacion from "../views/Comprobante/ComprobanteProgramacion.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +47,16 @@ const routes = [
         path: '/DetalleFactura/:idComprobante',
         name: "DetalleFactura",
         component: DetalleFactura 
+      },
+      {
+        path: '/archivo-banco',
+        name: "ArchivoBanco",
+        component: ArchivoBanco
+      },
+      {
+        path: '/programacion',
+        name: "comprobante_programacion",
+        component: ComprobanteProgramacion
       }
     ]
   },

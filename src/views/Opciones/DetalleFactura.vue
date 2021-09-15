@@ -393,73 +393,73 @@
               </tbody>
             </table>
           </div>
-            <div>
-              <el-row :gutter="10">
-                <el-col :md="24">
-                  <div class="py-1 d-flex justify-content-between" style="margin-top: 0px; display: flex; width: 80%">
-                    <h4
-                      class="card-title pl-3  mb-0"
-                      style="text-align: left; color: #0078cf"
+          <div>
+            <el-row :gutter="10">
+              <el-col :md="24">
+                <div class="py-1 d-flex justify-content-between" style="margin-top: 0px; display: flex; width: 80%">
+                  <h4
+                    class="card-title pl-3  mb-0"
+                    style="text-align: left; color: #0078cf"
+                  >
+                    Trazabilidad
+                  </h4>
+                  <div >
+                    <el-row  v-if="accion == 9" style="margin-top: 0px !important; margin-bottom: 0px !important">
+                      <el-col :xs="24" :md="12">
+                        <el-button
+                          type="primary"
+                          @click="dialogEstado = true"
+                          style="width: 200px; height: 50px; font-size: 17px; margin-right: 5px"
+                          plain
+                          >Aprobar</el-button
+                        >
+                      </el-col>
+                      <el-col :xs="24" :md="12">
+                        <el-button
+                          type="danger"
+                          @click="dialogEstadoDenegado = true"
+                          style="width: 200px; height: 50px; font-size: 17px"
+                          plain
+                          >Rechazar</el-button
+                        >
+                      </el-col>
+                    </el-row>
+                  </div>
+                </div>
+                <hr style="margin-top: 0px !important; margin-bottom: 10px !important" />
+                <div id="tabTrazabilidad" class="tab-pane active">
+                  <div class="container" style="width: 80%; text-align: left; margin-left: 20px">
+                    <table width="80%"
+                      id="example2"
+                      class="table table-hover " 
                     >
-                      Trazabilidad
-                    </h4>
-                    <div >
-                      <el-row  v-if="accion == 9" style="margin-top: 0px !important; margin-bottom: 0px !important">
-                        <el-col :xs="24" :md="12">
-                          <el-button
-                            type="primary"
-                            @click="dialogEstado = true"
-                            style="width: 200px; height: 50px; font-size: 17px; margin-right: 5px"
-                            plain
-                            >Aprobar</el-button
-                          >
-                        </el-col>
-                        <el-col :xs="24" :md="12">
-                          <el-button
-                            type="danger"
-                            @click="dialogEstadoDenegado = true"
-                            style="width: 200px; height: 50px; font-size: 17px"
-                            plain
-                            >Rechazar</el-button
-                          >
-                        </el-col>
-                      </el-row>
-                    </div>
+                      <thead>
+                        <tr>
+                          <th width="10%">FECHA</th>
+                          <th width="20%">USUARIO</th>
+                          <th width="20%">ACCIÓN</th>
+                          <th width="40%">OBSERVACIÓN</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="item of detalleTrazabilidad"
+                          :key="
+                            'detalletraza ' + item.idComprobanteTrazabilidad
+                          "
+                        >
+                          <td width="10%">{{ formatoFecha(item.fechaRegistro) }}</td>
+                          <td width="15%">{{ item.usuarioRegistro }}</td>
+                          <td width="20%">{{ item.nombreEstado }}</td>
+                          <td width="40%">{{ item.observacion }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                  <hr style="margin-top: 0px !important; margin-bottom: 10px !important" />
-                  <div id="tabTrazabilidad" class="tab-pane active">
-                    <div class="container" style="width: 80%; text-align: left; margin-left: 20px">
-                      <table width="80%"
-                        id="example2"
-                        class="table table-hover " 
-                      >
-                        <thead>
-                          <tr>
-                            <th width="10%">FECHA</th>
-                            <th width="20%">USUARIO</th>
-                            <th width="20%">ACCIÓN</th>
-                            <th width="40%">OBSERVACIÓN</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-for="item of detalleTrazabilidad"
-                            :key="
-                              'detalletraza ' + item.idComprobanteTrazabilidad
-                            "
-                          >
-                            <td width="10%">{{ formatoFecha(item.fechaRegistro) }}</td>
-                            <td width="15%">{{ item.usuarioRegistro }}</td>
-                            <td width="20%">{{ item.nombreEstado }}</td>
-                            <td width="40%">{{ item.observacion }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </el-col>
-              </el-row>
-            </div>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
           <el-dialog title="Estado" :visible.sync="dialogEstado" width="30%">
             <span>Seguro que desea comfirmar el documento?</span>
             <span slot="footer" class="dialog-footer">

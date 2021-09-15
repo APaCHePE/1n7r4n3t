@@ -62,6 +62,18 @@
             
           </el-menu-item-group>
         </el-submenu>
+        
+        <el-submenu index="6" style="padding: 30px 0px 0px 0px">
+          <template slot="title">
+            <i class="el-icon-edit-outline"></i>
+            <span style="font-size: 20px">Archivo Banco</span>
+          </template>
+          <el-menu-item-group>
+             <router-link :to="'archivo-banco'"><el-menu-item index="6-1">
+             <span>Bandeja</span>
+            </el-menu-item></router-link>
+          </el-menu-item-group>
+        </el-submenu>
 
         <router-link :to="'/'"><el-menu-item
           index="4"

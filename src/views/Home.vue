@@ -72,6 +72,10 @@ export default {
     // }
   },
   methods: {
+    iniciarSesion(){
+      // let url= Constantes.rutaeaa
+      console.log("iniciar sesion");
+    },
     cambiarModo(){
       console.log("recibiendo parametro "+this.login);
       this.login = (this.login == undefined)?true: !this.login;
