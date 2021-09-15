@@ -330,7 +330,6 @@ export default {
 </script>
 
 <style>
-@import '../plugins/css/bootstrap/bootstrap.css'; 
  @import '../plugins/css/style.css'; 
  @import '../plugins/css/main.css';
 </style>
