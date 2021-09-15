@@ -10,26 +10,30 @@
       "
       style="background-color: #ffffff; width: 100% !important"
     >
-      <el-menu
-        class="el-menu-demo menumobil"
-        mode="horizontal"
-      >
-        <el-menu-item index="1"
-          ><img class="" src="../plugins/img/logo.png" width="70" height="23px"
-        /></el-menu-item>
-
-        <router-link :to="'/'"
-          ><el-menu-item index="2" style="float: right"
-            >Cerrar Sesión</el-menu-item
-          ></router-link
-        >
+      <el-menu class="el-menu-demo menumobil" mode="horizontal">
+       <el-menu-item index="1"> 
+         <router-link :to="'/menu'">
+         <img class="" src="../plugins/img/logo.png" width="70" height="23px"/>
+         </router-link> 
+        </el-menu-item>
+        
+        <el-menu-item index="2" style="float: right">
+         <router-link :to="'/'"> 
+          <a>Cerrar Sesión</a>
+         </router-link>
+        </el-menu-item>
       </el-menu>
 
-      <Sidebar class="menu" />
-
-      <div class="container container-full">
+      <el-row :gutter="10" class="d-flex">
+        <el-col :md="4">  <Sidebar class="menu" /></el-col>
+        <el-col :md="20"> <div class=" container-full" id="container">
         <router-view />
-      </div>
+      </div></el-col>
+      </el-row>
+
+     
+
+      
     </div>
   </div>
 </template>
@@ -42,13 +46,26 @@ export default {
   data() {
     return {};
   },
-  methods: {
-   
-  },
+  methods: {},
 };
 </script>
 
 <style>
+
+div#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+div#container>div {
+
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: clip;  
+}
 
 .contenedor-opciones {
   position: absolute;
