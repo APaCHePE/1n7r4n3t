@@ -1,7 +1,6 @@
 <template>
   <div
-    class="content contentTG left-sidebar-toggle contenedor-opciones"
-    style="min-height: 592px; margin-left: 70px"
+    class="content contentTG left-sidebar-toggle contenedorItems"
   >
     <div class="contenedor-principal">
       <br /><br /><br />
@@ -67,15 +66,20 @@ export default {
           ],
         },
         {
-          name: "Facturas",
+          name: "Comprobantes ",
           url: "/",
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
+              name: "Pendientes",
+              url: "/facturas",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
+            },
+            {
               name: "Facturas Físicas",
               url: "/facturasFisicas",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
-            },
+            }
           ],
         },
       ],
@@ -86,13 +90,8 @@ export default {
 
 <style>
 @import "../../plugins/css/bootstrap/bootstrap.css";
-@import "../../plugins/css/bootstrap/bootstrap-select.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-multiselect.css";
 @import "../../plugins/css/style.css";
 @import "../../plugins/css/main.css";
-@import "../../plugins/css/font-awesome.css";
-@import "../../plugins/css/responsive.css";
 .bienvenido {
   box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;
@@ -101,9 +100,6 @@ export default {
 .contenedor-principal {
   width: auto;
   margin-left: 70px;
-}
-.contenedor-opciones {
-  position: absolute;
 }
 .options {
   display: flex;
@@ -119,5 +115,13 @@ export default {
 .positionRight {
   margin-right: 0px;
   display: flex;
+}
+.contenedorItems{
+  position: absolute;
+  min-height: 592px; 
+  margin-left: 70px;
+}
+@media only screen and (max-width: 600px) {
+ 
 }
 </style>
