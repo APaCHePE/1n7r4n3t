@@ -1079,7 +1079,7 @@
                     v-for="item of numeroItems"
                     :key="'Gasto ' + item.numeros"
                   >
-                    <td width="15%">CC{{ item.numeros }}</td>
+                    <td width="10%">CC{{ item.numeros }}</td>
                     <td width="15%">
                       <el-input
                         type="number"
@@ -1087,15 +1087,7 @@
                         v-model="item.cc"
                       ></el-input>
                     </td>
-                    <td width="15%">Importe</td>
-                    <td width="15%">
-                      <el-input
-                        type="number"
-                        class="input"
-                        v-model="item.importe"
-                      ></el-input>
-                    </td>
-                    <td width="15%">Centro de Costos</td>
+                    <td width="10%">Centro de Costos</td>
                     <td width="15%">
                       <el-input
                         type="number"
@@ -1104,6 +1096,24 @@
                         v-model="item.costo"
                       ></el-input>
                     </td>
+                    <td width="10%">Anexo</td>
+                    <td width="15%">
+                      <el-input
+                        type="number"
+                        class="input"
+                        v-model="item.importe"
+                      ></el-input>
+                    </td>
+                    <td width="10%">Importe</td>
+                    <td width="15%">
+                      <el-input
+                        type="number"
+                        class="input"
+                        v-model="item.importe"
+                      ></el-input>
+                    </td>
+                    
+                    
                     <td width="10%" v-if="distriGasto == false"><u style="font-size: 20px" @click="agregarItem()">+</u></td>
                   </tr>
                 </tbody>
@@ -1112,12 +1122,25 @@
             <div id="cabecera" class="alinieado-derecha">
               <el-row :gutter="10">
                 <el-col :xs="24" :md="12">
-                  <el-button
+                  <!-- <el-button
                     type="primary"
                     style="width: 200px; height: 50px; font-size: 17px"
                     plain
                     >Vista Previa</el-button
-                  >
+                  > -->
+
+                        <div class="col text-right">
+                                        <button class="btn btn-danger" 
+                                        @click="imprimirEstadoCuenta()">
+                                            Vista Previa
+                                            <b-icon-arrow-down></b-icon-arrow-down>                                
+                                        </button>
+                   </div>
+
+
+
+
+
                 </el-col>
                 <el-col :xs="24" :md="12">
                   <el-button
@@ -1152,7 +1175,7 @@ export default {
       tituloComprobante: "",
       conceptoText: null,
       detraccion: false,
-      igvAfecto: null,
+      igvAfecto: true,
       distriGasto: false,
 
       options: [{
@@ -1214,6 +1237,10 @@ export default {
     formatoFecha(valor) {
       return moment(valor).format("DD-MM-YYYY");
     },
+    imprimirEstadoCuenta(){
+            let documento = `http://localhost:8090/api/estado-cuenta/imprimir-eecc/1`;
+            window.open(documento, "_blank");
+        },
     consultar() {
       axios
         .get("http://localhost:8090/api/admin/consultar-comprobante", {
