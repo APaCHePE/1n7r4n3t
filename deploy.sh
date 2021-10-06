@@ -2,9 +2,9 @@
 
 set -e
 
-npm run build
+# npm run build
 
-cd dist 
+mv dist docs
 
 git add -A
 git commit -m "new deploy"
