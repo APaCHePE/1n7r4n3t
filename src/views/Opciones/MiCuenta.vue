@@ -6,47 +6,105 @@
     >
       <titulo-header>Lista de proveedores</titulo-header><br />
       <div class="container">
-        <div id="miCuenta"></div>
-        <div>
-          <div id="cuentasBAncarias" class="textoCuenta2">
-            <div class="row mb-1" style="font-size: 16px">
-              <div class="col-md-3"><b>Razón Social</b></div>
-              <div class="col-md-3"><b>RUC</b></div>
-              <div class="col-md-3"><b>Correo electrónico</b></div>
+        <div id="miCuenta">
+          <div>
+            <div class="row">
+              <div class="col-md-4" style="float: left">N° de RUC</div>
+              <div class="col-md-4" style="float: left">Fecha</div>
+              <div class="col-md-4" style="float: left">Estado</div>
+              <div class="col-md-4" style="float: left"></div>
             </div>
-            <div
-              class="row mb-2"
-              v-for="item of datosSolicitudes"
-              :key="'solicitudes ' + item.idProveedor"
-            >
-              <div class="col-md-3">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="item.persona.nombreCompleto"
-                  disabled
-                />
+
+            <div class="row">
+              <div class="col-md-4">
+                <el-input style="width: 200px" v-model="numeroRuc"></el-input>
               </div>
-              <div class="col-md-3">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="item.persona.nroDocumento"
-                  disabled
-                />
-              </div>
-              <div class="col-md-3">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="item.usuario"
-                  disabled
-                />
-              </div>
-              <div class="col-md-3">
-                <el-button type="primary" @click="mostrarDetalleSolicitud(item)"
-                  >Detalle</el-button
+              <div class="col-md-4">
+                <el-date-picker
+                  v-model="fecha"
+                  type="daterange"
+                  range-separator="a"
+                  start-placeholder="Start date"
+                  end-placeholder="End date"
                 >
+                </el-date-picker>
+              </div>
+              <div class="col-md-4">
+                <el-select
+                  v-model="estadoUsuario"
+                  placeholder="TODOS"
+                >
+                  <!-- <el-option
+                    v-for="item in tipoComprobanteResultado"
+                    :key="item.idParametro"
+                    :label="item.nombre"
+                    :value="item.idParametro"
+                  >
+                  </el-option> -->
+                  <el-option
+                    :label="'Aprobados'"
+                    :value="'Aprobados'"
+                  >
+                  </el-option>
+                  <el-option
+                    :label="'Pendiente'"
+                    :value="'Pendiente'"
+                  >
+                  </el-option>
+                  <el-option
+                    :label="'Rechazado'"
+                    :value="'Rechazado'"
+                  >
+                  </el-option>
+                </el-select>
               </div>
             </div>
+            <br />
+            <el-button
+              style="background-color: #51c1ff; width: 900px; color: #ffffff"
+              icon="el-icon-search"
+              @click="BuscarFacturas()"
+              >Buscar</el-button
+            ><br /><br /><br />
           </div>
+        </div>
+
+        <div class="contenedor-body">
+          <table id="example2" class="table table-hover table-sm mb-2">
+            <thead>
+              <tr>
+                <th class="text-center"><b>Razón Social</b></th>
+                <th class="text-center"><b>RUC</b></th>
+                <th class="text-center"><b>Correo electrónico</b></th>
+                <th class="text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="item of datosSolicitudes"
+                :key="'solicitudes1 ' + item.idProveedor"
+              >
+                <td>
+                  <template>{{ item.persona.nombreCompleto }}</template>
+                </td>
+                <td>
+                  <template>{{ item.persona.nroDocumento }}</template>
+                </td>
+                <td>
+                  <template>{{ item.usuario }}</template>
+                </td>
+                <td>
+                  <el-button
+                    type="primary"
+                    @click="mostrarDetalleSolicitud(item)"
+                    >Detalle</el-button
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
           <div v-if="detalleSolicitud">
             <el-dialog
               title="Detalle de solicitud"
@@ -182,6 +240,7 @@ export default {
     return {
       ESTADO_APROBADO: 10,
       ESTADO_RECHAZADO: 11,
+      estadoUsuario: 'Pendiente',
       innerVisible: false,
       detalleSolicitud: null,
       observacion: null,

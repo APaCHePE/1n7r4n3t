@@ -408,7 +408,7 @@
                       <el-col :xs="24" :md="12">
                         <el-button
                           type="primary"
-                          @click="dialogEstado = true"
+                          @click="dialogEstado = true; accionEstadoBoton=1; this.observacion='Se ha aprobado el comprobante.'"
                           style="width: 200px; height: 50px; font-size: 17px; margin-right: 5px"
                           plain
                           >Aprobar</el-button
@@ -417,7 +417,7 @@
                       <el-col :xs="24" :md="12">
                         <el-button
                           type="danger"
-                          @click="dialogEstadoDenegado = true"
+                          @click="dialogEstado = true; accionEstadoBoton=0"
                           style="width: 200px; height: 50px; font-size: 17px"
                           plain
                           >Rechazar</el-button
@@ -466,17 +466,17 @@
               <el-button type="danger" @click="dialogEstado = false"
                 >No</el-button
               >
-              <el-button type="primary" @click="Aprobar()">Si</el-button>
+              <el-button type="primary" @click="IngresarObservacion= true">Si</el-button>
             </span>
           </el-dialog>
           <el-dialog
             title="Estado"
-            :visible.sync="dialogEstadoDenegado"
+            :visible.sync="dialogEstado"
             width="30%"
           >
             <span>Seguro que desea rechazar el documento?</span>
             <span slot="footer" class="dialog-footer">
-              <el-button type="danger" @click="dialogEstadoDenegado = false"
+              <el-button type="danger" @click="dialogEstado = false"
                 >No</el-button
               >
               <el-button type="primary" @click="IngresarObservacion = true"
@@ -492,7 +492,7 @@
             <el-input type="textarea" autosize v-model="observacion">
             </el-input>
             <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="Rechazar()">Guardar</el-button>
+              <el-button type="primary" @click="Accion()">Guardar</el-button>
             </span>
           </el-dialog>
           <div></div>
@@ -1211,6 +1211,7 @@ export default {
       OtrosCargosV: null,
       ImporteTotalV: null,
       IgvV: null,
+      accionEstadoBoton: null,
     };
   },
   created() {
@@ -1293,7 +1294,13 @@ export default {
         })
         .catch((e) => console.log(e));
     },
-
+    Accion(){
+      if(this.accionEstadoBoton==1 ){
+        this.Aprobar()
+      }else if (this.accionEstadoBoton==0){
+        this.Rechazar()
+      }
+    },
     Aprobar() {
       this.dialogEstado = false;
       let detalle = this.detalle;
@@ -1304,7 +1311,7 @@ export default {
             idComprobante: detalle.idComprobante,
             estado: 10,
             id008Trazabilidad: 28,
-            observacion: "ninguna",
+            observacion: this.observacion,
             usuarioModificador: localStorage.getItem("User"),
           },
         })
@@ -1328,6 +1335,7 @@ export default {
             id008Trazabilidad: 29,
             observacion: this.observacion,
             usuarioModificador: localStorage.getItem("User"),
+            usuarioResponsable: "AAA",
           },
         })
         .then((response) => {
