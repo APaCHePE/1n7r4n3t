@@ -1,7 +1,7 @@
 <template>
   <div class="page-container positionRight" style="box-sizing: content-box">
     <el-col
-      style="mt-3; width: 18%; position: fixed; height: 100%;
+      style="mt-3; width: 18%; position: fixed; height: 100%;margin-left: -100px;
     display: flex; text-align: left"
     >
       <el-menu

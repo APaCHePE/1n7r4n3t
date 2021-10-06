@@ -12,7 +12,7 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="javascript:void(0);">
                            
-                            <h2 class="brand-text text-primary ml-1">ESTEC</h2>
+                            <h2 class="brand-text text-primary ml-1 mobil">ESTEC</h2>
                         </a>
                         <!-- /Brand logo-->
                         <!-- Left Text-->
@@ -23,8 +23,8 @@
                         <!-- Login-->
                         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                                <h2 class="card-title font-weight-bold mb-1">ESTEC</h2>
-                                <p class="card-text mb-2">Plataforma Digital ESTEC</p>
+                                <h2 class="card-title font-weight-bold mb-1 mobil2">ESTEC</h2>
+                                <p class="card-text mb-2">Portal digital ESTEC</p>
                                   <div >
                                 
                                     <div v-if="login">
@@ -92,19 +92,26 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600");
 @import "../assets/css/colors.css";
 @import "../assets/css/bootstrap.css";
-@import "../assets/css/bootstrap-extended.css";
 @import "../assets/css/components.css";
-@import "../assets/css/themes/dark-layout.css";
-@import "../assets/css/themes/bordered-layout.css";
-@import "../assets/css/themes/semi-dark-layout.css";
-@import "../assets/css/core/menu/menu-types/vertical-menu.css";
 @import "../assets/css/plugins/forms/form-validation.css";
-@import "../assets/css/pages/page-auth.css";
-@import "../assets/style.css";
 .position-left {
   float: left;
 }
 .size-text-login {
   font-size: 13px;
+}
+.mobil{
+display: block;
+}
+.mobil2{
+color: black;
+}
+@media only screen and (max-width: 600px) {
+ .mobil{
+display: none !important;
+}
+.mobil2{
+color: #51c1ff ;
+}
 }
 </style>

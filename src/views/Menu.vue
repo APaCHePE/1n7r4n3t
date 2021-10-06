@@ -1,20 +1,5 @@
 <template>
-  <div >
-    <!-- <div > -->
-    <!-- <b-button
-      v-b-toggle.sidebar-1
-      variant="background-color: #ffffff;box-shadow: none"
-      class="buttonMenu"
-    >
-      <a id="left-sidebar-hide" href="#">
-        <img
-          src="../plugins/img/icons/ico-navbar.png"
-          style="width: 25px; height: 25px"
-        />
-      </a>
-    </b-button> -->
-    
-    <!-- </div> -->
+  <div>
     <div
       class="
         ball-scale-multiple
@@ -23,15 +8,32 @@
         page-footer
         boxed-layout
       "
-      style=" background-color: #ffffff; width: 100% !important;"
+      style="background-color: #ffffff; width: 100% !important"
     >
+      <el-menu class="el-menu-demo menumobil" mode="horizontal">
+       <el-menu-item index="1"> 
+         <router-link :to="'/menu'">
+         <img class="" src="../plugins/img/logo.png" width="70" height="23px"/>
+         </router-link> 
+        </el-menu-item>
+        
+        <el-menu-item index="2" style="float: right">
+         <router-link :to="'/'"> 
+          <a>Cerrar Sesión</a>
+         </router-link>
+        </el-menu-item>
+      </el-menu>
 
-
-<Sidebar />
-
-      <div class="container container-full">
+      <el-row :gutter="10" class="d-flex">
+        <el-col :md="4">  <Sidebar class="menu" /></el-col>
+        <el-col :md="20"> <div class=" container-full" id="container">
         <router-view />
-      </div>
+      </div></el-col>
+      </el-row>
+
+     
+
+      
     </div>
   </div>
 </template>
@@ -44,25 +46,26 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    // changeLang(){
-    //     this.i18n = this.$i18n;
-    //     this.i18n.locale = 'ar';
-    //     this.$rtl.enableRTL();
-    // }
-  },
+  methods: {},
 };
 </script>
 
 <style>
-@import "../plugins/css/bootstrap/bootstrap.css";
-@import "../plugins/css/bootstrap/bootstrap-select.min.css";
-@import "../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
-@import "../plugins/css/bootstrap/bootstrap-multiselect.css";
-@import "../plugins/css/style.css";
-@import "../plugins/css/main.css";
-@import "../plugins/css/font-awesome.css";
-@import "../plugins/css/responsive.css";
+
+div#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+div#container>div {
+
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: clip;  
+}
 
 .contenedor-opciones {
   position: absolute;
@@ -81,5 +84,20 @@ export default {
 .positionRight {
   margin-right: 0px;
   display: flex;
+}
+.menu {
+  display: block;
+  margin-left: -100px;
+}
+.menumobil {
+  display: none !important;
+}
+@media only screen and (max-width: 600px) {
+  .menu {
+    display: none !important;
+  }
+  .menumobil {
+    display: block !important;
+  }
 }
 </style>
