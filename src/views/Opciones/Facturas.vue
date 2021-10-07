@@ -204,6 +204,7 @@
 import moment from "moment";
 import axios from "axios";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
+import constantes from "../store/Constantes";
 
 export default {
   components: {
@@ -240,8 +241,10 @@ export default {
   },
   methods: {
     OntenerCatalogo() {
+      
+      let url = constantes.rutaAdmin+"/consultar-parametro";
       axios
-        .get("http://localhost:8090/api/admin/consultar-parametro", {
+        .get(url, {
           params: {
             idParametroTipo: 7,
           },
@@ -282,8 +285,10 @@ export default {
       this.dialogEstado = false;
       this.dialogVisibleDetalle = false;
       console.log(detalle);
+      
+      let url = constantes.rutaAdmin+"/estado-factura";
       axios
-        .get("http://localhost:8090/api/admin/estado-factura", {
+        .get(url, {
           params: {
             idComprobante: detalle.idComprobante,
             estado: 10,
@@ -305,8 +310,10 @@ export default {
       this.dialogEstadoDenegado = false;
       this.IngresarObservacion = false;
       this.dialogVisibleDetalle = false;
+      
+      let url = constantes.rutaAdmin+"/estado-factura";
       axios
-        .get("http://localhost:8090/api/admin/estado-factura", {
+        .get(url, {
           params: {
             idComprobante: detalle.idComprobante,
             estado: 11,
@@ -341,8 +348,9 @@ export default {
       console.log(fechaInicio);
       console.log(fechaFin);
 
+      let url = constantes.rutaAdmin+"/consultar-comprobante";
       axios
-        .get("http://localhost:8090/api/admin/consultar-comprobante", {
+        .get(url, {
           params: {
             usuariosresponsable: localStorage.getItem("User"),
             numeroFac: this.numeroFac,

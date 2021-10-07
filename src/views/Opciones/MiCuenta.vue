@@ -231,6 +231,7 @@
 <script>
 import axios from "axios";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
+import constantes from "../store/Constantes";
 const ESTADO_PENDIENTE = 9;
 export default {
   components: {
@@ -287,8 +288,9 @@ export default {
       }
     },
     listarCuentas() {
+      let url = constantes.rutaAdmin+"/listar-proveedores";
       axios
-        .get("http://localhost:8090/api/admin/listar-proveedores", {
+        .get(url, {
           params: {
             estado: ESTADO_PENDIENTE,
           },
@@ -316,7 +318,7 @@ export default {
     },
     async activarCuenta(tipoAccion, obseracion) {
       this.cargando = true;
-      var url = "http://localhost:8090/api/admin/activar-proveedor";
+      let url = constantes.rutaAdmin+"/activar-proveedor";
       const params = {
         idProveedor: this.detalleSolicitud.idProveedor,
         estado: tipoAccion,
@@ -365,9 +367,9 @@ export default {
           this.validacionRUC = this.detalleSolicitud.persona.nroDocumento;
         })
         .catch((e) => console.log(e));
-      var urlErp = "http://localhost:8090/api/admin/listar-proveedor-erp";
+      let url = constantes.rutaAdmin+"/listar-proveedor-erp";
       axios
-        .get(urlErp, {
+        .get(url, {
           params: {
             nroDocumento: rucSolicitud.persona.nroDocumento,
           },
