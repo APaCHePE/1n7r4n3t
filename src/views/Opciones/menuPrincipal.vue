@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="content contentTG left-sidebar-toggle contenedorItems"
-  >
+  <div>
     <div class="contenedor-principal ">
       <br /><br /><br />
       <div class="desptok">
