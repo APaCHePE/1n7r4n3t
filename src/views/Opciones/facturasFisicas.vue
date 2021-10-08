@@ -330,6 +330,7 @@
 <script>
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
+import constantes from "../store/Constantes";
 export default {
   components: {
     TituloHeader,
@@ -381,7 +382,8 @@ export default {
     },
 
     consultaParametros(valorParametro) {
-      var url = "http://localhost:8090/api/admin/consultar-parametro";
+      
+      let url = constantes.rutaAdmin+"/consultar-parametro";
       axios
         .get(url, {
           params: {
@@ -475,7 +477,7 @@ export default {
         ],
       };
 
-      const url = "http://localhost:8090/api/admin/guardar-comprobante";
+      let url = constantes.rutaAdmin+"/guardar-comprobante";
       axios
         .post(url, facturaJson)
         .then((response) => {

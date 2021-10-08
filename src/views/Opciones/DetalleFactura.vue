@@ -1165,6 +1165,7 @@ import moment from "moment";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
 import Vue2Filters from 'vue2-filters'
+import constantes from "../store/Constantes";
 export default {
   components: {
     TituloHeader,
@@ -1239,12 +1240,16 @@ export default {
       return moment(valor).format("DD-MM-YYYY");
     },
     imprimirEstadoCuenta(){
-            let documento = `http://localhost:8090/api/estado-cuenta/imprimir-eecc/1`;
+      
+      let url = constantes.rutaAdmin+"/imprimir-eecc/1";
+            let documento =url;
             window.open(documento, "_blank");
         },
     consultar() {
+      
+      let url = constantes.rutaAdmin+"/consultar-comprobante";
       axios
-        .get("http://localhost:8090/api/admin/consultar-comprobante", {
+        .get(url, {
           params: {
             idComprobante: this.$route.params.idComprobante,
           },
@@ -1269,8 +1274,9 @@ export default {
           this.ImporteTotalV = this.financial(this.detalle.importeTotal);
           this.IgvV = this.financial(this.detalle.importeIgv);
           if (this.detalle.ordenNumero != null) {
+             let url = constantes.rutaAdmin+"/getOrdenes"
             axios
-              .get("http://localhost:8090/api/admin/getOrdenes", {
+              .get(url, {
                 params: {
                   nroOrden: this.detalle.ordenNumero,
                 },
@@ -1280,8 +1286,9 @@ export default {
               })
               .catch((e) => console.log(e));
           } else {
+            let url = constantes.rutaAdmin+"/getContrato"
             axios
-              .get("http://localhost:8090/api/admin/getContrato", {
+              .get(url, {
                 params: {
                   nroContrato: this.detalle.ordenContrato,
                 },
@@ -1304,8 +1311,9 @@ export default {
     Aprobar() {
       this.dialogEstado = false;
       let detalle = this.detalle;
+      let url = constantes.rutaAdmin+"/estado-factura"
       axios
-        .get("http://localhost:8090/api/admin/estado-factura", {
+        .get(url, {
           params: {
             usuarioResponsable: "CFF",
             idComprobante: detalle.idComprobante,
@@ -1327,8 +1335,9 @@ export default {
       this.dialogEstadoDenegado = false;
       this.IngresarObservacion = false;
       let detalle = this.detalle;
+      let url = constantes.rutaAdmin+"/estado-factura"
       axios
-        .get("http://localhost:8090/api/admin/estado-factura", {
+        .get(url, {
           params: {
             idComprobante: detalle.idComprobante,
             estado: 11,

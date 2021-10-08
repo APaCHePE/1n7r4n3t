@@ -49,6 +49,7 @@
 <script>
 import image from "@/assets/images/pages/login-v2.svg";
 import axios from "axios";
+import constantes from "../store/Constantes";
 
 export default {
   name: "Login",
@@ -101,8 +102,10 @@ export default {
       }
     },
     guardarUser() {
+      let url = constantes.rutaAdmin+"/login-externos";
       axios
-        .get("http://localhost:8090/api/admin/login-externos", {
+        .get(
+          url, {
           params: {
             user: this.user,
             clave: this.password,

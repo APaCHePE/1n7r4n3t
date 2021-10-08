@@ -172,6 +172,7 @@
 import moment from "moment";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
+import constantes from "../store/Constantes";
 export default {
   components: {
     TituloHeader,
@@ -206,8 +207,9 @@ export default {
         this.fecha == null ? null : moment(this.fecha[1]).format("YYYY-MM-DD");
       console.log(fechaInicio);
       console.log(fechaFin);
+      let url = constantes.rutaAdmin+"/getOrdenes";
       axios
-        .get("http://localhost:8090/api/admin/getOrdenes", {
+        .get(url, {
           params: {
             nroOrden: this.numeroOrden,
             fecInicio: fechaInicio,
