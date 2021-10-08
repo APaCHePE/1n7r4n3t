@@ -5,7 +5,7 @@
     display: flex; text-align: left"
     >
       <el-menu
-        style="size: 20px; background-color: #efeeee8a"
+        style="size: 20px; background-color: #003462"
         default-active="2"
         class="el-menu-vertical-demo"
         ><br />
@@ -14,16 +14,15 @@
           >
           <img
             class=""
-            src="../plugins/img/logo.png"
+            src="../plugins/img/nuevo.png"
             width="250"
             height="75px" />
-            
-            <br /><br /></a>
+            </a>
             <br />
 
        <router-link :to="'/menu'"> <el-menu-item
           index="1"
-          style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
+          style="font-size: 20px; padding: 30px 0px 0px 20px; color: #fff;"
         >
           <i class="el-icon-menu"></i>
           <span>Inicio</span>
@@ -32,29 +31,23 @@
         <el-submenu index="2" style="padding: 50px 0px 0px 0px; text-align: left">
           <template slot="title">
             <i class="el-icon-setting"></i>
-            <span style="font-size: 20px">Administración</span>
+            <span style="font-size: 20px; color: #fff">Administración</span>
           </template>
           <el-menu-item-group @click="enviarSelect(ruta)">
            <router-link :to="'/solicitudes'"> <el-menu-item index="1-1">
-              <span>Proveedores</span>
+              <span style="font-size: 20px">Proveedores</span>
             </el-menu-item></router-link>
-           <!-- <router-link :to="'/miscontactos'"> <el-menu-item index="1-2">
-              <span>Contactos</span>
-            </el-menu-item></router-link>
-            <router-link :to="'/misusuarios'"><el-menu-item index="1-3">
-              <span>Usuarios</span>
-            </el-menu-item></router-link> -->
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="3" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Comprobantes</span>
+            <span style="font-size: 20px; color: #fff">Comprobantes</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/facturas'"><el-menu-item index="1-2">
-             <span>Pendientes</span>
+             <span style="font-size: 20px">Pendientes</span>
             </el-menu-item></router-link> 
             <router-link :to="'/facturasFisicas'"><el-menu-item index="1-1">
               <span>Facturas Físicas</span>
@@ -66,7 +59,7 @@
         <el-submenu index="6" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Archivo Banco</span>
+            <span style="font-size: 20px;color: #fff">Archivo Banco</span>
           </template>
           <el-menu-item-group>
              <router-link :to="'archivo-banco'"><el-menu-item index="6-1">
@@ -80,7 +73,7 @@
           style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
         >
           <i class="el-icon-circle-close"></i>
-          <span>Cerrar Sesión</span>
+          <span style="font-size: 20px;color: #fff">Cerrar Sesión</span>
         </el-menu-item></router-link>
       </el-menu>
     </el-col>
