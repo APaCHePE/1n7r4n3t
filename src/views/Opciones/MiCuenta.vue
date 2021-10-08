@@ -231,7 +231,7 @@
 <script>
 import axios from "axios";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
-import constantes from "../store/Constantes";
+import constantes from "../../store/Constantes";
 const ESTADO_PENDIENTE = 9;
 export default {
   components: {
@@ -367,9 +367,9 @@ export default {
           this.validacionRUC = this.detalleSolicitud.persona.nroDocumento;
         })
         .catch((e) => console.log(e));
-      let url = constantes.rutaAdmin+"/listar-proveedor-erp";
+      let url2 = constantes.rutaAdmin+"/listar-proveedor-erp";
       axios
-        .get(url, {
+        .get(url2, {
           params: {
             nroDocumento: rucSolicitud.persona.nroDocumento,
           },

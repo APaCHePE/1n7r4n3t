@@ -1165,7 +1165,7 @@ import moment from "moment";
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
 import Vue2Filters from 'vue2-filters'
-import constantes from "../store/Constantes";
+import constantes from "../../store/Constantes";
 export default {
   components: {
     TituloHeader,

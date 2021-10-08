@@ -172,7 +172,7 @@
 import moment from "moment";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
-import constantes from "../store/Constantes";
+import constantes from "../../store/Constantes";
 export default {
   components: {
     TituloHeader,

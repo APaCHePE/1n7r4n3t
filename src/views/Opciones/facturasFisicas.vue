@@ -330,7 +330,7 @@
 <script>
 import TituloHeader from "@/components/Utils/TituloHeader.vue";
 import axios from "axios";
-import constantes from "../store/Constantes";
+import constantes from "../../store/Constantes";
 export default {
   components: {
     TituloHeader,
